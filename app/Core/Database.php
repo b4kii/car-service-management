@@ -9,8 +9,8 @@ class Database
     
     public function __construct($config)
     {
-        // $dsn = "mysql:host=localhost;port=3306;dbname=php;charset=utf8mb4";
-        $dsn = "mysql:" . http_build_query($config, "", ";");
+         $dsn = "mysql:host=localhost;port=3306;dbname=php;charset=utf8mb4";
+//        $dsn = "mysql:" . http_build_query($config, "", ";");
         
         try {
             $this->connection = new \PDO($dsn, "root", "");
