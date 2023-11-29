@@ -1,5 +1,7 @@
 <?php
 
+//TODO: Add validator, improve middleware
+
 namespace App\Core;
 
 use App\Core\Twig\SessionExtension;

@@ -87,7 +87,7 @@ class Router
     
     public function abort($code = 404): never
     {
-        require_once base_path("templates/{$code}.html.twig");
+        require_once base_path("templates/errors/{$code}.html.twig");
         exit();
     }
 }

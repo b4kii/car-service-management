@@ -14,7 +14,8 @@ require_once BASE_PATH . "vendor/autoload.php";
 
 require_once BASE_PATH . "app/helpers/functions.php";
 
-set_exception_handler(fn(Throwable $e) => var_dump($e->getMessage()));
+// Catch other errors
+set_exception_handler(fn(Throwable $e) => var_dump([$e->getMessage(), $e->getFile()], $e->getLine()));
 
 $container = new Illuminate\Container\Container();
 $router = new Router($container);

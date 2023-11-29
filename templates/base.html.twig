@@ -1,23 +1,30 @@
+{#TODO: Redo layouts#}
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>
-        {% block title %}
-            Car Service Management
-        {% endblock %}
-    </title>
-    <link rel="stylesheet" href="/assets/bootstrap/bootstrap.min.css">
-    <script src="/assets/js/popper.min.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/htmx.min.js"></script>
-    <script src="/assets/js/scripts.js" defer></script>
+
+    {% include "partials/head.html.twig" %}
+    {% block head %}
+    {% endblock head %}
+
 </head>
-<body>
-{% block body %}
-{% endblock %}
+<body class="overflow-x-hidden">
+
+{% include "partials/nav.html.twig" %}
+
+<section class="container-fluid p-0">
+    <div class="row vh-100">
+        {% block sidebar %}
+            {% include "partials/sidebar.html.twig" %}
+        {% endblock sidebar %}
+        <div class="col-10">
+            {% block body %}
+            {% endblock body %}
+        </div>
+    </div>
+</section>
+
+{% include "partials/footer.html.twig" %}
+
 </body>
 </html>
