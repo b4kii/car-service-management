@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 session_start();
 
+$_SESSION["user"] = ["name" => "test", "role" => "admin"];
+
 use App\Core\App;
 use App\Core\Router;
 use App\Core\Session;

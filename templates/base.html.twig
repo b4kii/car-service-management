@@ -2,24 +2,22 @@
 <!doctype html>
 <html lang="en">
 <head>
-
     {% include "partials/head.html.twig" %}
     {% block head %}
     {% endblock head %}
-
 </head>
 <body class="overflow-x-hidden">
 
 {% include "partials/nav.html.twig" %}
 
-<section class="container-fluid p-0">
+<section class="container-fluid">
     <div class="row vh-100">
         {% block sidebar %}
             {% include "partials/sidebar.html.twig" %}
         {% endblock sidebar %}
-        <div class="col-10">
-            {% block body %}
-            {% endblock body %}
+        <div class="col-lg-9 col-xl-10">
+            {% block main %}
+            {% endblock main %}
         </div>
     </div>
 </section>
