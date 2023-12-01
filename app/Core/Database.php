@@ -9,13 +9,15 @@ class Database
     
     public function __construct($config)
     {
-         $dsn = "mysql:host=localhost;port=3306;dbname=php;charset=utf8mb4";
-//        $dsn = "mysql:" . http_build_query($config, "", ";");
+         $dsn = "mysql:host={$config['host']};
+                     port={$config['port']};
+                     dbname={$config['dbname']};
+                     charset={$config['charset']}";
         
         try {
-            $this->connection = new \PDO($dsn, "root", "");
+            $this->connection = new \PDO($dsn, $config["username"], $config["password"]);
         } catch (\PDOException $e) {
-            echo "ERROR " . $e->getMessage();
+            echo "ERROR " . $e->getMessage(). $e->getLine();
             exit();
         }
     }
