@@ -1,23 +1,22 @@
 <?php
 
-namespace App\Core;
+namespace App\Core\Database;
 
-class Database
+class DatabaseConnection
 {
     public $connection = null;
     public $statement = null;
     
     public function __construct($config)
     {
-         $dsn = "mysql:host={$config['host']};
-                     port={$config['port']};
-                     dbname={$config['dbname']};
-                     charset={$config['charset']}";
+        $dsn = sprintf("mysql:host=%s;port=%s;dbname=%s;charset=%s", $config['host'], $config['port'], $config['dbname'], $config['charset']);
+        $username = $config['username'];
+        $password = $config['password'];
         
         try {
-            $this->connection = new \PDO($dsn, $config["username"], $config["password"]);
+            $this->connection = new \PDO($dsn, $username, $password);
         } catch (\PDOException $e) {
-            echo "ERROR " . $e->getMessage(). $e->getLine();
+            echo "Error during connecting with database: " . $e->getMessage();
             exit();
         }
     }
