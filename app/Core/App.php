@@ -19,11 +19,6 @@ class App
 //        $this->container->set(interface, class);
     }
     
-    public static function db(): Database
-    {
-        return static::$db;
-    }
-    
     public function boot(): static
     {
         
@@ -38,10 +33,10 @@ class App
         $twig->addExtension(new SessionExtension());
         
         $this->config = new Config();
-//        $db = new Database($this->config->db);
+        $db = new Database($this->config->db);
         
         $this->container->singleton(Twig::class, fn() => $twig);
-//        $this->container->singleton(Database::class, fn() => $db);
+        $this->container->singleton(Database::class, fn() => $db);
         
         return $this;
     }

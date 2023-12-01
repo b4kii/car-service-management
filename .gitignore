@@ -1,5 +1,5 @@
 vendor/
 storage/
-docker/storage/
+docker/
 .idea
 .env

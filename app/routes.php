@@ -6,6 +6,7 @@ use App\Controllers\Register;
 
 $router->get("/", [HomeController::class, "index"]);
 
-$router->get("/login", [LoginController::class, "index"])->middleware("guest");
+$router->get("/login", [LoginController::class, "index"])->middleware("auth:admin,manager");
 
-$router->get("/register", [Register::class, "index"])->middleware("guest");
+$router->get("/register", [Register::class, "index"]);
+
