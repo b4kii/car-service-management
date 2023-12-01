@@ -10,10 +10,12 @@ class Config
     {
         $this->config = [
             "db" => [
-                "host" => "localhost",
-                "port" => 3306,
-                "dbname" => "db",
-                "charset" => "utf8mb4"
+                "host" => $_ENV["DB_HOST"],
+                "port" => $_ENV["DB_PORT"],
+                "dbname" => $_ENV["DB_NAME"],
+                "charset" => $_ENV["DB_CHARSET"],
+                "username" => $_ENV["DB_USERNAME"],
+                "password" => $_ENV["DB_PASSWORD"]
             ]
         ];
     }
