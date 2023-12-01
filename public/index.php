@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+//phpinfo();
+//exit;
 session_start();
 
 $_SESSION["user"] = ["name" => "test", "role" => "admin"];
@@ -17,7 +19,7 @@ require_once BASE_PATH . "vendor/autoload.php";
 require_once BASE_PATH . "app/helpers/functions.php";
 
 // Catch other errors
-set_exception_handler(fn(Throwable $e) => var_dump([$e->getMessage(), $e->getFile()], $e->getLine()));
+set_exception_handler(fn(Throwable $e) => var_dump([$e->getMessage(), $e->getFile(), $e->getLine()]));
 
 $container = new Illuminate\Container\Container();
 $router = new Router($container);

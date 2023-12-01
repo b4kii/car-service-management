@@ -51,8 +51,7 @@ class Router
         return $this->add(HttpMethod::Patch, $uri, $controller);
     }
     
-//    TODO: Add middleware based on class
-    public function middleware($key): static
+    public function middleware(string $key): self
     {
         $this->routes[array_key_last($this->routes)]["middleware"] = $key;
         return $this;

@@ -5,8 +5,7 @@ namespace App\Core\Middleware;
 class Middleware
 {
     const MAP = [
-        "guest" => GuestMiddleware::class,
-        "auth" => AuthMiddleware::class,
+        "auth" => AuthMiddleware::class
     ];
     
     public static function resolve($key)
@@ -15,11 +14,21 @@ class Middleware
             return;
         }
         
+        // XD
+        $options = [];
+        
+        if (str_contains($key, ":")) {
+            $dest = explode(":",  $key);
+            $key = $dest[0];
+            $options = explode(",", $dest[1]);
+        }
+
         $middleware = static::MAP[$key] ?? false;
+        
         if (!$middleware) {
             throw new \Exception("No matching middleware found for {$key}");
         }
-        
-        (new $middleware)->handle();
+
+        (new $middleware)->handle($options);
     }
 }
