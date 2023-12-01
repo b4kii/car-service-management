@@ -4,6 +4,9 @@
 
 namespace App\Core;
 
+use App\Core\Database\DatabaseConnection;
+use App\Core\Database\DatabaseConfig;
+use App\Core\Database\DatabaseSeedData;
 use App\Core\Twig\SessionExtension;
 use App\Core\Twig\Twig;
 use Dotenv\Dotenv;
@@ -11,15 +14,16 @@ use Twig\Loader\FilesystemLoader;
 
 class App
 {
-    protected static Database $db;
-    private Config $config;
+    protected static DatabaseConnection $db;
+    private DatabaseConfig $config;
+    private DatabaseSeedData $seedData;
     
     public function __construct(protected \Illuminate\Container\Container $container, protected Router $router, protected array $request)
     {
 //        $this->container->set(interface, class);
     }
     
-    public static function db(): Database
+    public static function db(): DatabaseConnection
     {
         return static::$db;
     }
@@ -37,11 +41,13 @@ class App
         ]);
         $twig->addExtension(new SessionExtension());
         
-        $this->config = new Config();
-//        $db = new Database($this->config->db);
+        $this->config = new DatabaseConfig();
+        $db = new DatabaseConnection($this->config->db);
+        $this->seedData = new DatabaseSeedData($db);
+        $this->seedData->seedData();
         
         $this->container->singleton(Twig::class, fn() => $twig);
-//        $this->container->singleton(Database::class, fn() => $db);
+        $this->container->singleton(DatabaseConnection::class, fn() => $db);
         
         return $this;
     }
@@ -53,5 +59,6 @@ class App
             $this->request["uri"],
             $this->request["method"]
         );
+
     }
 }
