@@ -2,4 +2,3 @@ vendor/
 storage/
 docker/
 .idea
-.env
