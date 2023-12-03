@@ -4,11 +4,8 @@ namespace App\Core\Database;
 
 class DatabaseSeedData
 {
-    private $databaseConnection;
-
-    public function __construct(DatabaseConnection $databaseConnection)
+    public function __construct(private DatabaseConnection $databaseConnection)
     {
-        $this->databaseConnection = $databaseConnection;
     }
 
     public function seedData() : void

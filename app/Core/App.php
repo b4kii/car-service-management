@@ -5,7 +5,7 @@
 namespace App\Core;
 
 use App\Core\Database\DatabaseConnection;
-use App\Core\Database\DatabaseConfig;
+use App\Core\Database\DatabaseBaseConfig;
 use App\Core\Database\DatabaseSeedData;
 use App\Core\Twig\SessionExtension;
 use App\Core\Twig\Twig;
@@ -15,22 +15,15 @@ use Twig\Loader\FilesystemLoader;
 class App
 {
     protected static DatabaseConnection $db;
-    private DatabaseConfig $config;
+    private DatabaseBaseConfig $config;
     private DatabaseSeedData $seedData;
     
     public function __construct(protected \Illuminate\Container\Container $container, protected Router $router, protected array $request)
     {
-//        $this->container->set(interface, class);
-    }
-    
-    public static function db(): DatabaseConnection
-    {
-        return static::$db;
     }
     
     public function boot(): static
     {
-        
         $dotenv = Dotenv::createImmutable(BASE_PATH);
         $dotenv->load();
         
@@ -41,8 +34,8 @@ class App
         ]);
         $twig->addExtension(new SessionExtension());
         
-        $this->config = new DatabaseConfig();
-        $db = new DatabaseConnection($this->config->db);
+        $this->config = new DatabaseBaseConfig();
+        $db = new DatabaseConnection($this->config->getConfig());
         $this->seedData = new DatabaseSeedData($db);
         $this->seedData->seedData();
         
