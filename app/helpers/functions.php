@@ -1,6 +1,6 @@
 <?php
 
-use App\Core\Session;
+use App\Core\Commons\Session;
 
 function dd($value): never
 {

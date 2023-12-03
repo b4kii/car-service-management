@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Database;
+namespace App\Core\Commons;
 
 class BaseConfig
 {

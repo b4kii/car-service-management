@@ -1,19 +1,9 @@
-#RewriteEngine On
-#RewriteBase /
-#
-#RewriteCond %{THE_REQUEST} /public/([^\s?]*) [NC]
-#RewriteRule ^ %1 [L,NE,R=302]
-#
-#RewriteRule ^((?!public/).*)$ public/$1 [L,NC]
-#RewriteRule ^((?!public/).*)$ public/index.php [L,NC]
-#
-
 RewriteEngine On
 RewriteBase /
 
-RewriteCond %{THE_REQUEST} car-service/public/([^\s?]*) [NC]
+RewriteCond %{THE_REQUEST} car-service-management/public/([^\s?]*) [NC]
 RewriteRule ^ %1 [L,NE,R=302]
 
-RewriteRule ^((?!car-service/public/).*)$ car-service/public/$1 [L,NC]
-RewriteRule ^((?!car-service/public/).*)$ car-service/public/index.php [L,NC]
-#ErrorDocument /car-service/public/index.php
+RewriteRule ^((?!car-service-management/public/).*)$ car-service-management/public/$1 [L,NC]
+RewriteRule ^((?!car-service-management/public/).*)$ car-service-management/public/index.php [L,NC]
+#ErrorDocument /car-service-management/public/index.php

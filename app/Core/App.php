@@ -4,8 +4,9 @@
 
 namespace App\Core;
 
+use App\Core\Commons\Router;
+use App\Core\Database\DatabaseConfig;
 use App\Core\Database\DatabaseConnection;
-use App\Core\Database\DatabaseBaseConfig;
 use App\Core\Database\DatabaseSeedData;
 use App\Core\Twig\SessionExtension;
 use App\Core\Twig\Twig;
@@ -15,7 +16,7 @@ use Twig\Loader\FilesystemLoader;
 class App
 {
     protected static DatabaseConnection $db;
-    private DatabaseBaseConfig $config;
+    private DatabaseConfig $config;
     private DatabaseSeedData $seedData;
     
     public function __construct(protected \Illuminate\Container\Container $container, protected Router $router, protected array $request)
@@ -34,13 +35,14 @@ class App
         ]);
         $twig->addExtension(new SessionExtension());
         
-        $this->config = new DatabaseBaseConfig();
+        $this->config = new DatabaseConfig();
         $db = new DatabaseConnection($this->config->getConfig());
-        $this->seedData = new DatabaseSeedData($db);
-        $this->seedData->seedData();
         
         $this->container->singleton(Twig::class, fn() => $twig);
         $this->container->singleton(DatabaseConnection::class, fn() => $db);
+        
+        $seedData = $this->container->get(DatabaseSeedData::class);
+        $seedData->seedData();
         
         return $this;
     }

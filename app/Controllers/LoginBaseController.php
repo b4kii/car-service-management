@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class LoginController extends Controller
+class LoginBaseController extends BaseController
 {
     public function index(): string
     {

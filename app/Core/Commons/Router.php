@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Core;
+namespace App\Core\Commons;
 
 use App\Core\Middleware\Middleware;
 use App\Enums\HttpMethod;

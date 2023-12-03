@@ -2,7 +2,9 @@
 
 namespace App\Core\Database;
 
-class DatabaseBaseConfig extends BaseConfig
+use App\Core\Commons\BaseConfig;
+
+class DatabaseConfig extends BaseConfig
 {
     public function __construct()
     {

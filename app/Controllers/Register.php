@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class Register extends Controller
+class Register extends BaseController
 {
     public function index(): string
     {

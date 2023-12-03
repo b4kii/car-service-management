@@ -2,12 +2,10 @@
 
 namespace App\Core\Database;
 
-class DatabaseSeedData
-{
-    public function __construct(private DatabaseConnection $databaseConnection)
-    {
-    }
+use App\Models\BaseModel;
 
+class DatabaseSeedData extends BaseModel
+{
     public function seedData() : void
     {
         $pdo = $this->databaseConnection->connection;
@@ -19,7 +17,8 @@ class DatabaseSeedData
             $this->seedCarData($pdo);
             $this->seedServiceData($pdo);
         }catch(\Exception $exception) {
-            echo "Error during adding seed data to database: " . $exception->getMessage();
+//            echo "Error during adding seed data to database: " . $exception->getMessage() . $exception->getLine() . $exception->getFile();
+            echo "Error during adding seed data to database: {$exception->getMessage()}, line: {$exception->getLine()}, file: {$exception->getFile()}";
             exit();
         };
     }

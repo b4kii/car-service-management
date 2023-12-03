@@ -14,7 +14,6 @@ class Middleware
             return;
         }
         
-        // XD
         $options = [];
         
         if (str_contains($key, ":")) {

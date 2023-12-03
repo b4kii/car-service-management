@@ -9,8 +9,8 @@ session_start();
 $_SESSION["user"] = ["name" => "test", "role" => "admin"];
 
 use App\Core\App;
-use App\Core\Router;
-use App\Core\Session;
+use App\Core\Commons\Router;
+use App\Core\Commons\Session;
 
 const BASE_PATH = __DIR__ . "/../";
 
