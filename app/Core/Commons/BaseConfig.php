@@ -2,7 +2,9 @@
 
 namespace App\Core\Commons;
 
-class BaseConfig
+use App\Core\Interfaces\BaseConfigInterface;
+
+class BaseConfig implements BaseConfigInterface
 {
     protected array $config = [];
     

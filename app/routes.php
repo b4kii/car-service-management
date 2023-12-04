@@ -9,4 +9,3 @@ $router->get("/", [HomeBaseController::class, "index"]);
 $router->get("/login", [LoginBaseController::class, "index"])->middleware("auth:admin,manager");
 
 $router->get("/register", [Register::class, "index"]);
-

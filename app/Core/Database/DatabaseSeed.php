@@ -2,43 +2,42 @@
 
 namespace App\Core\Database;
 
-use App\Models\BaseModel;
 
-class DatabaseSeedData extends BaseModel
-{
+use App\Core\Database\Interfaces\DatabaseConnectionInterface;
+
+class DatabaseSeed {
+    public function __construct(private DatabaseConnectionInterface $databaseConnection)
+    {
+    }
+
     public function seedData() : void
     {
-        $pdo = $this->databaseConnection->connection;
         try
         {
-            $this->seedAddressData($pdo);
-            $this->seedUserData($pdo);
-            $this->seedClientData($pdo);
-            $this->seedCarData($pdo);
-            $this->seedServiceData($pdo);
+            $this->seedAddressData();
+//            $this->seedUserData($pdo);
+//            $this->seedClientData($pdo);
+//            $this->seedCarData($pdo);
+//            $this->seedServiceData($pdo);
         }catch(\Exception $exception) {
-//            echo "Error during adding seed data to database: " . $exception->getMessage() . $exception->getLine() . $exception->getFile();
             echo "Error during adding seed data to database: {$exception->getMessage()}, line: {$exception->getLine()}, file: {$exception->getFile()}";
             exit();
         };
     }
 
-    public function seedAddressData($pdo) : void
+    public function seedAddressData() : void
     {
-        $addressSeedData = [
-            ['City' => 'Warszawa', 'Street' => 'Kwiatowa 1', 'PostCode' => '42-123', 'HouseNumber' => '23A', 'Phone' => '443-112-445', 'Email' => 'email1@mail.com'],
-            ['City' => 'Warszawa', 'Street' => 'Lesna 43', 'PostCode' => '54-231', 'HouseNumber' => '2A', 'Phone' => '865-123-555', 'Email' => 'email2@mail.com'],
-            ['City' => 'Krakow', 'Street' => 'Krakowska 12', 'PostCode' => '78-111', 'HouseNumber' => '93/2', 'Phone' => '846-900-321', 'Email' => 'email3@mail.com'],
-            ['City' => 'Poznan', 'Street' => 'Cieszynka 49', 'PostCode' => '994-11', 'HouseNumber' => '4', 'Phone' => '884-338-000', 'Email' => 'email4@mail.com'],
-            ['City' => 'Lublin', 'Street' => 'Krakowska 59', 'PostCode' => '78-001', 'HouseNumber' => '19C', 'Phone' => '846-900-321', 'Email' => 'email5@mail.com'],
-            ['City' => 'Wroclaw', 'Street' => 'Wroclawska 153', 'PostCode' => '64-223', 'HouseNumber' => '331', 'Phone' => '833-000-001', 'Email' => 'email6@mail.com']
+        $columns = ['City', 'Street', 'PostCode', 'HouseNumber', 'Phone', 'Email'];
+        $data = [
+            ['Warszawa', 'Kwiatowa 1', '42-123', '23A', '443-112-445', 'email1@mail.com'],
+            ['Warszawa', 'Lesna 43', '54-231', '2A', '865-123-555', 'email2@mail.com'],
+            ['Krakow', 'Krakowska 12', '78-111', '93/2', '846-900-321', 'email3@mail.com'],
+            ['Poznan', 'Cieszynka 49', '994-11', '4', '884-338-000', 'email4@mail.com'],
+            ['Lublin', 'Krakowska 59', '78-001', '19C', '846-900-321', 'email5@mail.com'],
+            ['Wroclaw', 'Wroclawska 153', '64-223', '331', '833-000-001', 'email6@mail.com']
         ];
-        $sql = $pdo->prepare('INSERT INTO Address (City, Street, PostCode, HouseNumber, Phone, Email) VALUES (:City, :Street, :PostCode, :HouseNumber, :Phone, :Email)');
 
-        foreach ($addressSeedData as $data)
-        {
-            $sql->execute($data);
-        }
+        $this->databaseConnection->insertMultiple('Address', $columns, $data);
     }
 
     public function seedUserData($pdo) : void

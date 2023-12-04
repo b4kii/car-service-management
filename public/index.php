@@ -8,7 +8,7 @@ session_start();
 
 $_SESSION["user"] = ["name" => "test", "role" => "admin"];
 
-use App\Core\App;
+use App\App;
 use App\Core\Commons\Router;
 use App\Core\Commons\Session;
 

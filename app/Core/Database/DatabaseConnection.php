@@ -2,17 +2,19 @@
 
 namespace App\Core\Database;
 
-class DatabaseConnection
+use App\Core\Database\Interfaces\DatabaseConnectionInterface;
+
+class DatabaseConnection implements DatabaseConnectionInterface
 {
-    public $connection = null;
+    public $connection;
     public $statement = null;
     
     public function __construct($config)
     {
-        $dsn = sprintf("mysql:host=%s;port=%s;dbname=%s;charset=%s", $config['host'], $config['port'], $config['dbname'], $config['charset']);
+        $dsn = "mysql:host={$config['host']};port={$config['port']};dbname={$config['dbname']};charset={$config['charset']}";
         $username = $config['username'];
         $password = $config['password'];
-        
+
         try {
             $this->connection = new \PDO($dsn, $username, $password);
         } catch (\PDOException $e) {
@@ -20,7 +22,7 @@ class DatabaseConnection
             exit();
         }
     }
-    
+
     public function query($query, $params = [])
     {
         $this->statement = $this->connection->prepare($query);
@@ -31,15 +33,6 @@ class DatabaseConnection
     public function find($mode = \PDO::FETCH_ASSOC)
     {
         return $this->statement->fetch($mode);
-    }
-    
-    public function findAndDie()
-    {
-        $result = $this->find();
-        if (!$result) {
-            abort();
-        }
-        return $result;
     }
     
     public function findAll($mode = \PDO::FETCH_ASSOC)
@@ -53,15 +46,27 @@ class DatabaseConnection
         $values = ":" . implode(", :", array_keys($data));
         
         $query = "INSERT INTO {$table} ({$columns}) VALUES ({$values})";
-        $this->statement->connection->prepare($query);
+        $stmt = $this->statement->connection->prepare($query);
         
-        foreach ($data as $key => $value) {
-            $this->statement->bindValue(":{$key}", $value);
-        }
-        
-        $this->statement->execute();
-        
+        $stmt->execute($data);
+
         return $this->connection->lastInsertId();
     }
-    
+
+    public function insertMultiple(string $table, array $columns, array $data)
+    {
+        $data = array_map(function ($row) use($columns) {
+            return array_combine($columns, $row);
+        }, $data);
+
+        $placeholders = ":" . implode(", :", $columns);
+        $columns = implode(", ", $columns);
+        $query = "INSERT INTO {$table} ({$columns}) VALUES ($placeholders)";
+        $this->statement = $this->connection->prepare($query);
+
+        foreach ($data as $row)
+        {
+            $this->statement->execute($row);
+        }
+    }
 }

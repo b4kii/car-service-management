@@ -2,12 +2,15 @@
 
 //TODO: Add validator, improve middleware
 
-namespace App\Core;
+namespace App;
 
+use App\Core\Commons\BaseConfig;
 use App\Core\Commons\Router;
 use App\Core\Database\DatabaseConfig;
 use App\Core\Database\DatabaseConnection;
-use App\Core\Database\DatabaseSeedData;
+use App\Core\Database\DatabaseSeed;
+use App\Core\Database\Interfaces\DatabaseConnectionInterface;
+use App\Core\Interfaces\BaseConfigInterface;
 use App\Core\Twig\SessionExtension;
 use App\Core\Twig\Twig;
 use Dotenv\Dotenv;
@@ -17,7 +20,7 @@ class App
 {
     protected static DatabaseConnection $db;
     private DatabaseConfig $config;
-    private DatabaseSeedData $seedData;
+    private DatabaseSeed $seedData;
     
     public function __construct(protected \Illuminate\Container\Container $container, protected Router $router, protected array $request)
     {
@@ -34,14 +37,18 @@ class App
             'auto_reload' => true
         ]);
         $twig->addExtension(new SessionExtension());
-        
+
+        // base classes
+        $this->container->scoped(BaseConfigInterface::class, BaseConfig::class);
+
         $this->config = new DatabaseConfig();
         $db = new DatabaseConnection($this->config->getConfig());
         
         $this->container->singleton(Twig::class, fn() => $twig);
         $this->container->singleton(DatabaseConnection::class, fn() => $db);
+        $this->container->scoped(DatabaseConnectionInterface::class, DatabaseConnection::class);
         
-        $seedData = $this->container->get(DatabaseSeedData::class);
+        $seedData = $this->container->get(DatabaseSeed::class);
         $seedData->seedData();
         
         return $this;
