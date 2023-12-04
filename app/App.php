@@ -19,7 +19,6 @@ use Twig\Loader\FilesystemLoader;
 class App
 {
     protected static DatabaseConnection $db;
-    private DatabaseConfig $config;
     private DatabaseSeed $seedData;
     
     public function __construct(protected \Illuminate\Container\Container $container, protected Router $router, protected array $request)
@@ -41,8 +40,8 @@ class App
         // base classes
         $this->container->scoped(BaseConfigInterface::class, BaseConfig::class);
 
-        $this->config = new DatabaseConfig();
-        $db = new DatabaseConnection($this->config->getConfig());
+        $config = new DatabaseConfig();
+        $db = new DatabaseConnection($config->getConfig());
         
         $this->container->singleton(Twig::class, fn() => $twig);
         $this->container->singleton(DatabaseConnection::class, fn() => $db);

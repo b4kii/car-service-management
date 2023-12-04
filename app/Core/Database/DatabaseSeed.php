@@ -37,22 +37,20 @@ class DatabaseSeed {
             ['Wroclaw', 'Wroclawska 153', '64-223', '331', '833-000-001', 'email6@mail.com']
         ];
 
-        $this->databaseConnection->insertMultiple('Address', $columns, $data);
+//        $this->databaseConnection->insertMultiple('Address', $columns, $data);
+        $this->databaseConnection->delete("Address", "Id = :Id", ["Id" => 19]);
     }
 
-    public function seedUserData($pdo) : void
+    public function seedUserData() : void
     {
-        $userSeedData = [
-            ['Login' => 'admin', 'Password' => 'admin123', 'Email' => 'admin@mail.com', 'Phone' => '993-213-421', 'Role' => 'Admin'],
-            ['Login' => 'manager', 'Password' => 'manager123', 'Email' => 'manager@mail.com', 'Phone' => '993-213-114', 'Role' => 'Manager'],
-            ['Login' => 'worker', 'Password' => 'worker123', 'Email' => 'worker@mail.com', 'Phone' => '778-220-410', 'Role' => 'Worker']
+        $columns = ['Login', 'Password', 'Email', 'Phone', 'Role'];
+        $data = [
+            ['admin', 'admin123', 'admin@mail.com', '993-213-421', 'Admin'],
+            ['manager', 'manager123', 'manager@mail.com', '993-213-114', 'Manager'],
+            ['worker', 'worker123', 'worker@mail.com', '778-220-410', 'Worker']
         ];
-        $sql = $pdo->prepare('INSERT INTO User (Login, Password, Email, Phone, Role) VALUES (:Login, :Password, :Email, :Phone, :Role)');
-
-        foreach ($userSeedData as $data)
-        {
-            $sql->execute($data);
-        }
+        
+        $this->databaseConnection->insertMultiple('User', $columns, $data);
     }
 
     public function seedClientData($pdo) : void

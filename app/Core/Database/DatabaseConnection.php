@@ -52,7 +52,7 @@ class DatabaseConnection implements DatabaseConnectionInterface
 
         return $this->connection->lastInsertId();
     }
-
+    
     public function insertMultiple(string $table, array $columns, array $data)
     {
         $data = array_map(function ($row) use($columns) {
@@ -69,4 +69,18 @@ class DatabaseConnection implements DatabaseConnectionInterface
             $this->statement->execute($row);
         }
     }
+    
+    public function delete(string $table, string $condition, array $values): bool
+    {
+        $query = "DELETE FROM {$table} WHERE {$condition}";
+        dd($this->query($query, $values));
+        return true;
+    }
+    
+    public function deleteAll(string $table): void
+    {
+        $query = "DELETE FROM {$table}";
+        $this->query($query);
+    }
+    
 }
