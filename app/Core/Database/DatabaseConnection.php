@@ -40,7 +40,7 @@ class DatabaseConnection implements DatabaseConnectionInterface
         return $this->statement->fetchAll($mode);
     }
     
-    public function insert(string $table, array $data)
+    public function insertRecord(string $table, array $data): int
     {
         $columns = implode(", ", array_keys($data));
         $values = ":" . implode(", :", array_keys($data));
@@ -48,12 +48,17 @@ class DatabaseConnection implements DatabaseConnectionInterface
         $query = "INSERT INTO {$table} ({$columns}) VALUES ({$values})";
         $stmt = $this->statement->connection->prepare($query);
         
-        $stmt->execute($data);
+        try {
+            $stmt->execute($data);
+        } catch (\PDOException $e) {
+            echo "Error while inserting record - {$query}\n{$e->getMessage()} ";
+            exit();
+        }
 
         return $this->connection->lastInsertId();
     }
     
-    public function insertMultiple(string $table, array $columns, array $data)
+    public function insertRecords(string $table, array $columns, array $data): int
     {
         $data = array_map(function ($row) use($columns) {
             return array_combine($columns, $row);
@@ -64,23 +69,44 @@ class DatabaseConnection implements DatabaseConnectionInterface
         $query = "INSERT INTO {$table} ({$columns}) VALUES ($placeholders)";
         $this->statement = $this->connection->prepare($query);
 
-        foreach ($data as $row)
-        {
-            $this->statement->execute($row);
+        $affectedRows = $this->statement->rowCount();
+        
+        try {
+            foreach ($data as $row)
+            {
+                $this->statement->execute($row);
+                $affectedRows += 1;
+            }
+        } catch (\PDOException $e) {
+            echo "Error while inserting multiple records - {$query}\n{$e->getMessage()} ";
+            exit();
+        }
+        
+        return $affectedRows;
+    }
+    
+    public function deleteRecord(string $table, string $condition, array $values): int
+    {
+        $query = "DELETE FROM {$table} WHERE {$condition}";
+        try {
+            $this->query($query, $values);
+            return $this->statement->rowCount();
+        } catch (\PDOException $e) {
+            echo "Error while deleting record - {$query}\n{$e->getMessage()} ";
+            exit();
         }
     }
     
-    public function delete(string $table, string $condition, array $values): bool
-    {
-        $query = "DELETE FROM {$table} WHERE {$condition}";
-        dd($this->query($query, $values));
-        return true;
-    }
-    
-    public function deleteAll(string $table): void
+    public function deleteRecords(string $table): int
     {
         $query = "DELETE FROM {$table}";
-        $this->query($query);
+        try {
+            $this->query($query);
+            return $this->statement->rowCount();
+        } catch (\PDOException $e) {
+            echo "Error while deleting all records - {$query}\n{$e->getMessage()} ";
+            exit();
+        }
     }
     
 }

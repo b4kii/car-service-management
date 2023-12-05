@@ -7,9 +7,9 @@ interface DatabaseConnectionInterface
     public function query($query, $params = []);
     public function find($mode = \PDO::FETCH_ASSOC);
     public function findAll($mode = \PDO::FETCH_ASSOC);
-    public function insert(string $table, array $data);
-    public function insertMultiple(string $table, array $columns, array $data);
+    public function insertRecord (string $table, array $data): int;
+    public function insertRecords(string $table, array $columns, array $data): int;
     
-    public function delete(string $table, string $condition, array $values): bool;
-    public function deleteAll(string $table): void;
+    public function deleteRecord(string $table, string $condition, array $values): int;
+    public function deleteRecords(string $table): int;
 }
