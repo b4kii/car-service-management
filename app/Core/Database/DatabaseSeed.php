@@ -14,18 +14,26 @@ class DatabaseSeed {
     {
         try
         {
+            $this->createTables();
             $this->seedAddressData();
-//            $this->seedUserData($pdo);
-//            $this->seedClientData($pdo);
-//            $this->seedCarData($pdo);
-//            $this->seedServiceData($pdo);
+            $this->seedUserData();
+            $this->seedClientData();
+            $this->seedCarData();
+            $this->seedServiceData();
         }catch(\Exception $exception) {
-            echo "Error during adding seed data to database: {$exception->getMessage()}, line: {$exception->getLine()}, file: {$exception->getFile()}";
+            echo "Error during adding seed data to database or database:
+                {$exception->getMessage()}, line: {$exception->getLine()}, file: {$exception->getFile()}";
             exit();
         };
     }
 
-    public function seedAddressData() : void
+    private function createTables()
+    {
+        $dbFile = file_get_contents(__DIR__ . '/Commons/car-service-management.sql');
+        $this->databaseConnection->query($dbFile);
+    }
+
+    private function seedAddressData() : void
     {
         $columns = ['City', 'Street', 'PostCode', 'HouseNumber', 'Phone', 'Email'];
         $data = [
@@ -37,11 +45,10 @@ class DatabaseSeed {
             ['Wroclaw', 'Wroclawska 153', '64-223', '331', '833-000-001', 'email6@mail.com']
         ];
 
-//        $this->databaseConnection->insertMultiple('Address', $columns, $data);
-        $this->databaseConnection->delete("Address", "Id = :Id", ["Id" => 19]);
+        $this->databaseConnection->insertMultiple('Address', $columns, $data);
     }
 
-    public function seedUserData() : void
+    private function seedUserData() : void
     {
         $columns = ['Login', 'Password', 'Email', 'Phone', 'Role'];
         $data = [
@@ -53,55 +60,46 @@ class DatabaseSeed {
         $this->databaseConnection->insertMultiple('User', $columns, $data);
     }
 
-    public function seedClientData($pdo) : void
+    private function seedClientData() : void
     {
-        $clientSeedData = [
-            ['AddressId' => 1, 'Firstname' => 'Jan', 'Lastname' => 'Kowalski', 'NIP' => null, 'Code' => '0fd3e775-0abb-4ada-8006-234d45ad656e', 'Type' => 'Individual'],
-            ['AddressId' => 2, 'Firstname' => 'Adam', 'Lastname' => 'Krawczyk', 'NIP' => '9874039213', 'Code' => '8fdbe043-74cc-4503-8055-3a1eeb917524', 'Type' => 'Company'],
-            ['AddressId' => 3, 'Firstname' => 'Zenek', 'Lastname' => 'Kociol', 'NIP' => '8454320194', 'Code' => '86f5ec24-0ef4-4896-8cb2-887f06b0b2e5', 'Type' => 'Company'],
-            ['AddressId' => 4, 'Firstname' => 'Dawid', 'Lastname' => 'Szybki', 'NIP' => null, 'Code' => '86f5ec24-0ef4-4896-8cb2-887f06b0b2e5', 'Type' => 'Individual'],
-            ['AddressId' => 5, 'Firstname' => 'Karol', 'Lastname' => 'Lis', 'NIP' => null, 'Code' => 'c6f46a75-b386-4f01-bd66-4af33ebf4680', 'Type' => 'Individual'],
-            ['AddressId' => 6, 'Firstname' => 'Daniel', 'Lastname' => 'Kot', 'NIP' => '8479283014', 'Code' => '512a64d1-9553-47eb-84ac-36bf42eb8e87', 'Type' => 'Company'],
+        $columns = ['AddressId', 'Firstname', 'Lastname', 'NIP', 'Code', 'Type'];
+        $data = [
+            [1, 'Jan', 'Kowalski', null, '0fd3e775-0abb-4ada-8006-234d45ad656e', 'Individual'],
+            [2, 'Adam', 'Krawczyk', '9874039213', '8fdbe043-74cc-4503-8055-3a1eeb917524', 'Company'],
+            [3, 'Zenek', 'Kociol', '8454320194', '86f5ec24-0ef4-4896-8cb2-887f06b0b2e5', 'Company'],
+            [4, 'Dawid', 'Szybki', null, '86f5ec24-0ef4-4896-8cb2-887f06b0b2e5', 'Individual'],
+            [5, 'Karol', 'Lis', null, 'c6f46a75-b386-4f01-bd66-4af33ebf4680', 'Individual'],
+            [6, 'Daniel', 'Kot', '8479283014', '512a64d1-9553-47eb-84ac-36bf42eb8e87', 'Company'],
         ];
-        $sql = $pdo->prepare('INSERT INTO Client (AddressId, Firstname, Lastname, NIP, Code, Type) VALUES (:AddressId, :Firstname, :Lastname, :NIP, :Code, :Type)');
 
-        foreach ($clientSeedData as $data)
-        {
-            $sql->execute($data);
-        }
+        $this->databaseConnection->insertMultiple('Client', $columns, $data);
     }
 
-    public function seedCarData($pdo) : void
+    private function seedCarData() : void
     {
-        $carSeedData = [
-            ['ClientId' => 1, 'WorkerId' => 3, 'Brand' => 'Audi', 'Model' => 'A4', 'IdentificationNumber' => 'WAUKD78P29A034484', 'Color' => 'Red', 'Mileage' => 432454.234, 'EngineCapacity' => 1999.99, 'Type' => 'Sedan', 'Status' => 'New', 'AdmissionDate' => '2023-12-01 14:30:00', 'SubmissionDate' => null],
-            ['ClientId' => 2, 'WorkerId' => 3, 'Brand' => 'Citroen', 'Model' => '206', 'IdentificationNumber' => 'WAUJC68E53A021100', 'Color' => 'Green', 'Mileage' => 890922.00, 'EngineCapacity' => 2499.99, 'Type' => 'Hatchback', 'Status' => 'InProgress', 'AdmissionDate' => '2023-02-11 19:30:00', 'SubmissionDate' => null],
-            ['ClientId' => 3, 'WorkerId' => 3, 'Brand' => 'BMW', 'Model' => 'e46', 'IdentificationNumber' => 'WAUDG74FX5NO76837', 'Color' => 'Yellow', 'Mileage' => 9904992.00, 'EngineCapacity' => 2799.99, 'Type' => 'Coupe', 'Status' => 'New', 'AdmissionDate' => '2023-07-23 10:55:00', 'SubmissionDate' => '2023-11-10 10:55:00'],
-            ['ClientId' => 4, 'WorkerId' => 3, 'Brand' => 'BMW', 'Model' => 'X3', 'IdentificationNumber' => 'WAUAF78E08A022739', 'Color' => 'Pink', 'Mileage' => 111132.233, 'EngineCapacity' => 3400.00, 'Type' => 'SUV', 'Status' => 'Cancelled', 'AdmissionDate' => '2022-10-23 10:55:00', 'SubmissionDate' => null],
+        $columns = ['ClientId', 'WorkerId', 'Brand', 'Model', 'IdentificationNumber', 'Color', 'Mileage', 'EngineCapacity', 'Type', 'Status', 'AdmissionDate', 'SubmissionDate'];
+        $data = [
+            [1, 3, 'Audi', 'A4', 'WAUKD78P29A034484', 'Red', 432454.234, 1999.99, 'Sedan', 'New', '2023-12-01 14:30:00', null],
+            [2, 3, 'Citroen', '206', 'WAUJC68E53A021100', 'Green', 890922.00, 2499.99, 'Hatchback', 'InProgress', '2023-02-11 19:30:00', null],
+            [3, 3, 'BMW', 'e46', 'WAUDG74FX5NO76837', 'Yellow', 9904992.00, 2799.99, 'Coupe', 'New', '2023-07-23 10:55:00', '2023-11-10 10:55:00'],
+            [4, 3, 'BMW', 'X3', 'WAUAF78E08A022739', 'Pink', 111132.233, 3400.00, 'SUV', 'Cancelled', '2022-10-23 10:55:00', null],
         ];
-        $sql = $pdo->prepare('INSERT INTO Car (ClientId, WorkerId, Brand, Model, IdentificationNumber, Color, Mileage, EngineCapacity, Type, Status, AdmissionDate, SubmissionDate) VALUES (:ClientId, :WorkerId, :Brand, :Model, :IdentificationNumber, :Color, :Mileage, :EngineCapacity, :Type, :Status, :AdmissionDate, :SubmissionDate)');
 
-        foreach ($carSeedData as $data)
-        {
-            $sql->execute($data);
-        }
+        $this->databaseConnection->insertMultiple('Car', $columns, $data);
     }
 
-    public function seedServiceData($pdo) : void
+    private function seedServiceData() : void
     {
-        $serviceSeedData = [
-            ['CarId' => 1, 'Name' => 'Wymiana klocków przód', 'Cost' => 150.00, 'Comment' => null],
-            ['CarId' => 1, 'Name' => 'Zmiana opon', 'Cost' => 250.00, 'Comment' => 'Problem przy odkręceniu tylnego, lewego koła'],
-            ['CarId' => 3, 'Name' => 'Wymiana wycieraczek', 'Cost' => 50.00, 'Comment' => null],
-            ['CarId' => 3, 'Name' => 'Mycie', 'Cost' => 350.00, 'Comment' => 'Auto zostało umyte wewnątrz oraz z zewnątrz'],
-            ['CarId' => 3, 'Name' => 'Ładowanie akumulatora', 'Cost' => 0.00, 'Comment' => 'Samochód nie chciał odpalić po dłużej przerwie'],
-            ['CarId' => 3, 'Name' => 'Wymiana poduszek silnika', 'Cost' => 200.00, 'Comment' => 'Wyciek oleju ze skrzyni biegów- do sprawdzenia'],
+        $columns = ['CarId', 'Name', 'Cost', 'Comment'];
+        $data = [
+            [1, 'Wymiana klocków przód', 150.00, null],
+            [1, 'Zmiana opon', 250.00, 'Problem przy odkręceniu tylnego, lewego koła'],
+            [3, 'Wymiana wycieraczek', 50.00, null],
+            [3, 'Mycie', 350.00, 'Auto zostało umyte wewnątrz oraz z zewnątrz'],
+            [3, 'Ładowanie akumulatora', 0.00, 'Samochód nie chciał odpalić po dłużej przerwie'],
+            [3, 'Wymiana poduszek silnika', 200.00, 'Wyciek oleju ze skrzyni biegów- do sprawdzenia'],
         ];
-        $sql = $pdo->prepare('INSERT INTO Service (CarId, Name, Cost, Comment) VALUES (:CarId, :Name, :Cost, :Comment)');
 
-        foreach ($serviceSeedData as $data)
-        {
-            $sql->execute($data);
-        }
+        $this->databaseConnection->insertMultiple('Service', $columns, $data);
     }
 }
