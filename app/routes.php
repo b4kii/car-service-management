@@ -2,10 +2,10 @@
 
 use App\Controllers\HomeController;
 use App\Controllers\LoginController;
-use App\Controllers\Register;
+use App\Controllers\RegisterController;
 
 $router->get("/", [HomeController::class, "index"]);
 
 $router->get("/login", [LoginController::class, "index"])->middleware("auth:admin,manager");
 
-$router->get("/register", [Register::class, "index"]);
+$router->get("/register", [RegisterController::class, "index"]);
