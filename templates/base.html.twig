@@ -1,4 +1,4 @@
-{#TODO: Redo layouts#}
+{# TODO: Redo layouts #}
 <!doctype html>
 <html lang="en">
 <head>
@@ -15,10 +15,9 @@
         {% block sidebar %}
             {% include "partials/sidebar.html.twig" %}
         {% endblock sidebar %}
-        <div class="col-lg-9 col-xl-10">
-            {% block main %}
-            {% endblock main %}
-        </div>
+
+        {% block main %}
+        {% endblock main %}
     </div>
 </section>
 

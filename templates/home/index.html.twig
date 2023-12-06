@@ -4,7 +4,15 @@
     Test
 {% endblock title %}
 
+{% block sidebar %}
+{% endblock sidebar %}
+
 {% block main %}
-    <h1>Home</h1>
+    <div class="container">
+        <h1>Home</h1>
+        <form action="/code" method="POST" >
+            <input type="text" name="code">
+        </form>
+    </div>
 {% endblock main %}
 

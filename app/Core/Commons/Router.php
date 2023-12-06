@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Core\Commons;
 
 use App\Core\Middleware\Middleware;
+use App\Core\Twig\Twig;
 use App\Enums\HttpMethod;
 
 class Router
@@ -86,7 +87,9 @@ class Router
     
     public function abort($code = 404): never
     {
-        require_once base_path("templates/errors/{$code}.html.twig");
+        $twig = $this->container->get(Twig::class);
+        echo $twig->render("errors/{$code}.html.twig");
+        
         exit();
     }
 }

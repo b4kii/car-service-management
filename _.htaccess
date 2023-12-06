@@ -1,9 +1,0 @@
-RewriteEngine On
-RewriteBase /
-
-RewriteCond %{THE_REQUEST} car-service-management/public/([^\s?]*) [NC]
-RewriteRule ^ %1 [L,NE,R=302]
-
-RewriteRule ^((?!car-service-management/public/).*)$ car-service-management/public/$1 [L,NC]
-RewriteRule ^((?!car-service-management/public/).*)$ car-service-management/public/index.php [L,NC]
-#ErrorDocument /car-service-management/public/index.php

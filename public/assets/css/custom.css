@@ -1,0 +1,32 @@
+#sidebar {
+    width: 0;
+    padding: 0;
+    overflow: hidden;
+    transition: width 300ms;
+}
+
+#main {
+    width: 100%;
+    overflow: hidden;
+    transition: width 300ms;
+}
+
+@media screen and (min-width: 992px) {
+    #sidebar {
+        width: 25%;
+    }
+
+    #main {
+        width: 75%;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    #sidebar {
+        width: 20%;
+    }
+
+    #main {
+        width: 80%;
+    }
+}

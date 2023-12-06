@@ -46,7 +46,7 @@ class App
         $this->container->singleton(Twig::class, fn() => $twig);
         $this->container->singleton(DatabaseConnection::class, fn() => $db);
         $this->container->scoped(DatabaseConnectionInterface::class, DatabaseConnection::class);
-        
+
         $seedData = $this->container->get(DatabaseSeed::class);
         $seedData->seedData();
         

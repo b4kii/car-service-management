@@ -1,9 +1,14 @@
 {% extends "base.html.twig" %}
-{#{% include "partials/head.html.twig" %}#}
-{#{% include "partials/nav.html.twig" %}#}
 
-{#<div>#}
-{#    RegisterController#}
-{#</div>#}
+{% block title %}
+    Register
+{% endblock title %}
 
-{#{% include "partials/footer.html.twig" %}#}
+{#{% block sidebar %}#}
+{#{% endblock sidebar %}#}
+
+{% block main %}
+    <div id="main" class="col-lg-9 col-xl-10">
+        <h1>Register</h1>
+    </div>
+{% endblock main %}

@@ -1,1 +1,16 @@
-<h1>TWIG Not found</h1>
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Page not found
+{% endblock title %}
+
+{% block sidebar %}
+{% endblock sidebar %}
+
+{% block main %}
+    <div class="container d-flex flex-column justify-content-center align-items-center vh-100">
+        <h1>404</h1>
+        <div>Page not found</div>
+        <a href="/">Go back</a>
+    </div>
+{% endblock main %}
