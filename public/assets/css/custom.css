@@ -1,14 +1,18 @@
+:root {
+    --sidebar-transition-speed: 300ms;
+}
+
 #sidebar {
     width: 0;
     padding: 0;
     overflow: hidden;
-    transition: width 300ms;
+    transition: width var(--sidebar-transition-speed);
 }
 
 #main {
     width: 100%;
     overflow: hidden;
-    transition: width 300ms;
+    transition: width var(--sidebar-transition-speed);
 }
 
 @media screen and (min-width: 992px) {

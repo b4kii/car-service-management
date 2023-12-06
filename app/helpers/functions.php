@@ -10,18 +10,6 @@ function dd($value): never
     exit();
 }
 
-function checkUri($uri): string
-{
-    return $_SERVER["REQUEST_URI"] == $uri;
-}
-
-function authorize($condition): void
-{
-    if (!$condition) {
-        abort(403);
-    }
-}
-
 function base_path($path): string
 {
     return BASE_PATH . $path;
