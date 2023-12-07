@@ -1,6 +1,6 @@
 <?php
 
-use App\Controllers\CustomerController;
+use App\Controllers\ClientController;
 use App\Controllers\HomeController;
 use App\Controllers\LoginController;
 use App\Controllers\RegisterController;
@@ -12,4 +12,4 @@ $router->get("/login", [LoginController::class, "index"])->middleware("auth:admi
 
 $router->get("/register", [RegisterController::class, "index"]);
 
-$router->post("/service-details", [CustomerController::class, "serviceDetails"]);
+$router->post("/service-details", [ClientController::class, "serviceDetails"]);
