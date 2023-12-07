@@ -2,6 +2,11 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <title>
+        {% block title %}
+            Car Service Management
+        {% endblock %}
+    </title>
     {% include "partials/head.html.twig" %}
     {% block head %}
     {% endblock head %}
@@ -11,7 +16,7 @@
 {% include "partials/nav.html.twig" %}
 
 <section class="container-fluid">
-    <div class="row vh-100">
+    <div class="row" style="min-height: calc(100vh - 56px);">
         {% block sidebar %}
             {% include "partials/sidebar.html.twig" %}
         {% endblock sidebar %}

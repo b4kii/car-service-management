@@ -7,9 +7,15 @@ const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstra
 
 const mediaQuery = "(min-width: 992px)";
 const mediaQueryList = window.matchMedia(mediaQuery);
-const offcanvas = new bootstrap.Offcanvas("#offcanvasSidebar");
-mediaQueryList.addEventListener("change", (e) => {
-    if (e.matches) {
-        offcanvas.hide();
-    }
-});
+const offcanvasSidebarEl = document.querySelector("#offcanvasSidebar");
+
+if (offcanvasSidebarEl) {
+    const offcanvas = new bootstrap.Offcanvas("#offcanvasSidebar");
+
+    mediaQueryList.addEventListener("change", (e) => {
+        if (e.matches) {
+            offcanvas.hide();
+        }
+    });
+
+}

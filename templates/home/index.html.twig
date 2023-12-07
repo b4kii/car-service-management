@@ -8,10 +8,24 @@
 {% endblock sidebar %}
 
 {% block main %}
-    <div class="container">
-        <h1>Home</h1>
-        <form action="/code" method="POST" >
-            <input type="text" name="code">
+    <div class="container-fluid d-flex justify-content-center align-items-center">
+        <form
+            hx-post="/service-details"
+            hx-swap="outerHTML"
+            hx-target="this"
+        >
+            <div class="input-group">
+                <input
+                    type="text"
+                    name="customerCode"
+                    class="form-control form-control-lg"
+                    placeholder="Wprowadź kod"
+                    aria-label="customer-code"
+                >
+                <button class="input-group-text">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
         </form>
     </div>
 {% endblock main %}
