@@ -6,7 +6,8 @@ declare(strict_types=1);
 //exit;
 session_start();
 
-$_SESSION["user"] = ["name" => "test", "role" => "admin"];
+$_SESSION["user"] = ["name" => "baki", "role" => "admin"];
+session_unset();
 
 use App\App;
 use App\Core\Commons\Router;

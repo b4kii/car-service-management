@@ -8,7 +8,7 @@ use App\Controllers\RegisterController;
 $router->get("/", [HomeController::class, "index"]);
 
 
-$router->get("/login", [LoginController::class, "index"])->middleware("auth:admin,manager");
+$router->get("/login", [LoginController::class, "index"]);
 
 $router->get("/register", [RegisterController::class, "index"]);
 

@@ -1,8 +1,9 @@
 <nav
-    class="navbar navbar-expand-lg px-lg-5 bg-dark-subtle text-white"
+{#    class="navbar navbar-expand-lg px-lg-5 bg-dark-subtle text-white"#}
+    class="navbar navbar-expand-lg px-lg-5 border-1 border-bottom border-dark-subtle"
 >
     <div class="container-fluid">
-{#        TODO: Hide this button when user is not logged in#}
+        {#        TODO: Hide this button when user is not logged in #}
 
         <button class="navbar-toggler d-lg-none"
                 type="button"
@@ -12,17 +13,24 @@
         >
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#">Logo</a>
+        <a class="navbar-brand" href="/">Logo</a>
         <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             </ul>
 
             <div class="d-flex">
+                {% set user = session.user %}
+                {% if user %}
                 <ul class="navbar-nav dropdown">
                     <li class="nav-item">
-                        <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            User
+                        {#                        TODO: Fix user auth with method or leave this as is #}
+                        <a class="nav-link active dropdown-toggle"
+                           href="#"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false"
+                        >
+                            {{ user.name }}
                         </a>
 
                         <ul class="dropdown-menu dropdown-menu-end">
@@ -35,7 +43,13 @@
                         </ul>
                     </li>
                 </ul>
-
+                {% else %}
+                    <a class="btn"
+                       href="/login"
+                    >
+                        Zaloguj się
+                    </a>
+                {% endif %}
             </div>
         </div>
     </div>

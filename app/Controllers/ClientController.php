@@ -12,6 +12,7 @@ class ClientController extends BaseController
             ["model" => "BMW"],
             ["model" => "Volkswagen"]
         ];
+        
         return $this->twig->render("client/service-details.html.twig", [
             "clientCode" => $clientCode,
             "cars" => $cars

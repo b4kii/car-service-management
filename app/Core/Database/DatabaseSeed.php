@@ -79,10 +79,10 @@ class DatabaseSeed {
     {
         $columns = ['ClientId', 'WorkerId', 'Brand', 'Model', 'IdentificationNumber', 'Color', 'Mileage', 'EngineCapacity', 'Type', 'Status', 'AdmissionDate', 'SubmissionDate'];
         $data = [
-            [1, 3, 'Audi', 'A4', 'WAUKD78P29A034484', 'Red', 432454.234, 1999.99, 'Sedan', 'New', '2023-12-01 14:30:00', null],
+            [1, 3, 'Audi', 'A4', 'WAUKD78P29A034484', 'Red', 432454.34, 1999.99, 'Sedan', 'New', '2023-12-01 14:30:00', null],
             [2, 3, 'Citroen', '206', 'WAUJC68E53A021100', 'Green', 890922.00, 2499.99, 'Hatchback', 'InProgress', '2023-02-11 19:30:00', null],
             [3, 3, 'BMW', 'e46', 'WAUDG74FX5NO76837', 'Yellow', 9904992.00, 2799.99, 'Coupe', 'New', '2023-07-23 10:55:00', '2023-11-10 10:55:00'],
-            [4, 3, 'BMW', 'X3', 'WAUAF78E08A022739', 'Pink', 111132.233, 3400.00, 'SUV', 'Cancelled', '2022-10-23 10:55:00', null],
+            [4, 3, 'BMW', 'X3', 'WAUAF78E08A022739', 'Pink', 111132.33, 3400.00, 'SUV', 'Cancelled', '2022-10-23 10:55:00', null],
         ];
 
         $this->databaseConnection->insertRecords('Car', $columns, $data);
