@@ -3,10 +3,10 @@
 namespace App\Core\Database;
 
 
-use App\Core\Database\Interfaces\DatabaseConnectionInterface;
+use App\Core\Database\Interfaces\DatabaseInterface;
 
 class DatabaseSeed {
-    public function __construct(private DatabaseConnectionInterface $databaseConnection)
+    public function __construct(private DatabaseInterface $database)
     {
     }
 
@@ -30,7 +30,7 @@ class DatabaseSeed {
     private function createTables()
     {
         $dbFile = file_get_contents(__DIR__ . '/Commons/car-service-management.sql');
-        $this->databaseConnection->query($dbFile);
+        $this->database->query($dbFile);
     }
 
     private function seedAddressData() : void
@@ -45,7 +45,7 @@ class DatabaseSeed {
             ['Wroclaw', 'Wroclawska 153', '64-223', '331', '833-000-001', 'email6@mail.com']
         ];
 
-        $this->databaseConnection->insertRecords('Address', $columns, $data);
+        $this->database->insertRecords('Address', $columns, $data);
     }
 
     private function seedUserData() : void
@@ -57,7 +57,7 @@ class DatabaseSeed {
             ['worker', 'worker123', 'worker@mail.com', '778-220-410', 'Worker']
         ];
         
-        $this->databaseConnection->insertRecords('User', $columns, $data);
+        $this->database->insertRecords('User', $columns, $data);
     }
 
     private function seedClientData() : void
@@ -72,7 +72,7 @@ class DatabaseSeed {
             [6, 'Daniel', 'Kot', '8479283014', '512a64d1-9553-47eb-84ac-36bf42eb8e87', 'Company'],
         ];
 
-        $this->databaseConnection->insertRecords('Client', $columns, $data);
+        $this->database->insertRecords('Client', $columns, $data);
     }
 
     private function seedCarData() : void
@@ -85,7 +85,7 @@ class DatabaseSeed {
             [4, 3, 'BMW', 'X3', 'WAUAF78E08A022739', 'Pink', 111132.33, 3400.00, 'SUV', 'Cancelled', '2022-10-23 10:55:00', null],
         ];
 
-        $this->databaseConnection->insertRecords('Car', $columns, $data);
+        $this->database->insertRecords('Car', $columns, $data);
     }
 
     private function seedServiceData() : void
@@ -100,6 +100,6 @@ class DatabaseSeed {
             [3, 'Wymiana poduszek silnika', 200.00, 'Wyciek oleju ze skrzyni biegów- do sprawdzenia'],
         ];
 
-        $this->databaseConnection->insertRecords('Service', $columns, $data);
+        $this->database->insertRecords('Service', $columns, $data);
     }
 }
