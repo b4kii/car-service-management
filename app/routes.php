@@ -12,4 +12,5 @@ $router->get("/login", [LoginController::class, "index"]);
 
 $router->get("/register", [RegisterController::class, "index"]);
 
-$router->post("/service-details", [ClientController::class, "serviceDetails"]);
+//$router->post("/service-details", [ClientController::class, "serviceDetails"]);
+$router->get("/service-details", [ClientController::class, "serviceDetails"]);

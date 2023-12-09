@@ -35,6 +35,7 @@
     }
 }
 
+/* Loader */
 .loader {
     display: none;
     transition: opacity 300ms ease-in;

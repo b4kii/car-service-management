@@ -24,11 +24,13 @@ if (offcanvasSidebarEl) {
 
 const themeTogglerEl = document.querySelector("#themeToggler");
 const htmlEl = document.querySelector("html");
-if (themeTogglerEl) {
-    let theme = localStorage.getItem("theme") ?? (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
 
-    htmlEl.setAttribute("data-bs-theme", theme);
-    localStorage.setItem("theme", theme);
+let theme = localStorage.getItem("theme") ?? (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+htmlEl.setAttribute("data-bs-theme", theme);
+localStorage.setItem("theme", theme);
+
+if (themeTogglerEl) {
+
     themeTogglerEl.checked = theme === "dark";
 
     const toggleTheme = (e) => {
