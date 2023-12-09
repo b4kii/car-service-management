@@ -24,16 +24,18 @@ if (offcanvasSidebarEl) {
 
 const themeTogglerEl = document.querySelector("#themeToggler");
 const htmlEl = document.querySelector("html");
-let theme = localStorage.getItem("theme") ?? (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+if (themeTogglerEl) {
+    let theme = localStorage.getItem("theme") ?? (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
 
-htmlEl.setAttribute("data-bs-theme", theme);
-localStorage.setItem("theme", theme);
-themeTogglerEl.checked = theme === "dark";
-
-const toggleTheme = (e) => {
-    theme = e.target.checked ? "dark" : "light";
     htmlEl.setAttribute("data-bs-theme", theme);
     localStorage.setItem("theme", theme);
-};
+    themeTogglerEl.checked = theme === "dark";
 
-themeTogglerEl.addEventListener("click", toggleTheme);
+    const toggleTheme = (e) => {
+        theme = e.target.checked ? "dark" : "light";
+        htmlEl.setAttribute("data-bs-theme", theme);
+        localStorage.setItem("theme", theme);
+    };
+
+    themeTogglerEl.addEventListener("click", toggleTheme);
+}
