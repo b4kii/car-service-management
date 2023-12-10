@@ -9,6 +9,7 @@ $router->get("/", [HomeController::class, "index"]);
 
 
 $router->get("/login", [LoginController::class, "index"]);
+$router->post("/login", [LoginController::class, "store"]);
 
 $router->get("/register", [RegisterController::class, "index"]);
 
