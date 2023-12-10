@@ -2,9 +2,9 @@
 
 namespace App\Core\Database;
 
-use App\Core\Database\Interfaces\DatabaseConnectionInterface;
+use App\Core\Database\Interfaces\DatabaseInterface;
 
-class DatabaseConnection implements DatabaseConnectionInterface
+class Database implements DatabaseInterface
 {
     public $connection;
     public $statement = null;
@@ -27,6 +27,7 @@ class DatabaseConnection implements DatabaseConnectionInterface
     {
         $this->statement = $this->connection->prepare($query);
         $this->statement->execute($params);
+
         return $this;
     }
     
@@ -46,10 +47,10 @@ class DatabaseConnection implements DatabaseConnectionInterface
         $values = ":" . implode(", :", array_keys($data));
         
         $query = "INSERT INTO {$table} ({$columns}) VALUES ({$values})";
-        $stmt = $this->statement->connection->prepare($query);
-        
+        $this->statement = $this->connection->prepare($query);
+
         try {
-            $stmt->execute($data);
+            $this->statement->execute($data);
         } catch (\PDOException $e) {
             echo "Error while inserting record - {$query}\n{$e->getMessage()} ";
             exit();
@@ -84,10 +85,41 @@ class DatabaseConnection implements DatabaseConnectionInterface
         
         return $affectedRows;
     }
+
+    public function updateRecord(string $table, string $condition, string $column, $value): int
+    {
+        $query = "UPDATE {$table} SET {$column} = '{$value}' WHERE {$condition}";
+
+        try {
+            $this->query($query);
+            return $this->statement->rowCount();
+        } catch (\PDOException $e) {
+            echo "Error while updating record - {$query}\n{$e->getMessage()}";
+            exit();
+        }
+    }
+
+    public function updateRecords(string $table, array $data, string $condition): int
+    {
+        $records = implode(', ', array_map(function ($record)
+        {
+            return "$record = :$record";
+        }, array_keys($data)));
+        $query = "UPDATE {$table} SET {$records} WHERE {$condition}";
+
+        try {
+            $this->query($query, $data);
+            return $this->statement->rowCount();
+        } catch (\PDOException $e) {
+            echo "Error while updating records - {$query}\n{$e->getMessage()}";
+            exit();
+        }
+    }
     
     public function deleteRecord(string $table, string $condition, array $values): int
     {
         $query = "DELETE FROM {$table} WHERE {$condition}";
+
         try {
             $this->query($query, $values);
             return $this->statement->rowCount();
@@ -100,6 +132,7 @@ class DatabaseConnection implements DatabaseConnectionInterface
     public function deleteRecords(string $table): int
     {
         $query = "DELETE FROM {$table}";
+
         try {
             $this->query($query);
             return $this->statement->rowCount();
@@ -108,5 +141,4 @@ class DatabaseConnection implements DatabaseConnectionInterface
             exit();
         }
     }
-    
 }
