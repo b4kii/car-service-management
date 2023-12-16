@@ -1,26 +1,35 @@
-<div class="w-50 h-50 accordion" id="carsAccordion">
-    {% for car in cars %}
-        <div class="accordion-item">
-            <h3 class="accordion-header">
-                <button
-                    class="accordion-button"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#{{ car.model }}"
-                    aria-expanded="true"
-                    aria-controls="collapseOne"
-                >
-                    Accordion Item #1
-                </button>
-            </h3>
-            <div id="{{ car.model }}"
-                 class="accordion-collapse collapse show"
-                 data-bs-parent="#carsAccordion"
-            >
-                <div class="accordion-body">
-                    {{ car.model }}
+{% extends "base.html.twig" %}
+
+{% block sidebar %}
+{% endblock sidebar %}
+
+{% block main %}
+    <div class="container-fluid d-flex justify-content-center align-items-center">
+        <div class="w-50 h-50 accordion" id="carsAccordion">
+            {% for car in cars %}
+
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button
+                            class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#{{ car.model }}"
+                            aria-expanded="true"
+                            aria-controls="{{ car.model }}"
+                        >
+                            Accordion Item #1
+                        </button>
+                    </h3>
+                    <div id="{{ car.model }}"
+                         class="accordion-collapse collapse"
+                    >
+                        <div class="accordion-body">
+                            {{ car.model }}
+                        </div>
+                    </div>
                 </div>
-            </div>
+            {% endfor %}
         </div>
-    {% endfor %}
-</div>
+    </div>
+{% endblock main %}

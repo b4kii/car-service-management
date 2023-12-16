@@ -76,6 +76,7 @@ class Router
                     
                     if (method_exists($controller, $action)) {
                         echo call_user_func_array([$controller, $action], []);
+                        Session::unflash();
                         exit;
                     }
                 }

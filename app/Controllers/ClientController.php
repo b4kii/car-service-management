@@ -6,7 +6,8 @@ class ClientController extends BaseController
 {
     public function serviceDetails(): string
     {
-        $clientCode = $_POST["customerCode"];
+//        $clientCode = $_POST["clientCode"];
+        $clientCode = $_GET["clientCode"];
         $cars = [
             ["model" => "Audi"],
             ["model" => "BMW"],

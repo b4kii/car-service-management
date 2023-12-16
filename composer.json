@@ -11,6 +11,7 @@
         "twig/twig": "^3.8",
         "illuminate/container": "^10.33",
         "latte/latte": "^3.0",
-        "ext-pdo": "*"
+        "ext-pdo": "*",
+        "vlucas/valitron": "^1.4"
     }
 }

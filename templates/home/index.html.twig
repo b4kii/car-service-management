@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-    Test
+    Home
 {% endblock title %}
 
 {% block sidebar %}
@@ -10,14 +10,16 @@
 {% block main %}
     <div class="container-fluid d-flex justify-content-center align-items-center">
         <form
-            hx-post="/service-details"
+            hx-get="/service-details"
             hx-swap="outerHTML"
-            hx-target="this"
+            hx-target="#main-container"
+            hx-indicator="#loader-backdrop"
+            hx-push-url="true"
         >
             <div class="input-group shadow-sm rounded-3">
                 <input
                     type="text"
-                    name="customerCode"
+                    name="clientCode"
                     class="form-control form-control-lg"
                     placeholder="Wprowadź kod"
                     aria-label="customer-code"
@@ -27,6 +29,7 @@
                 </button>
             </div>
         </form>
+
     </div>
 {% endblock main %}
 

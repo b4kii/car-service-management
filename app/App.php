@@ -16,6 +16,7 @@ use App\Core\Twig\Twig;
 use Dotenv\Dotenv;
 use Illuminate\Container\Container;
 use Twig\Loader\FilesystemLoader;
+use Valitron\Validator;
 
 class App
 {
@@ -61,5 +62,6 @@ class App
             $this->request["uri"],
             $this->request["method"]
         );
+        dd($_SESSION);
     }
 }

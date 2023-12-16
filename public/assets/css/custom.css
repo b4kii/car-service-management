@@ -2,35 +2,72 @@
     --sidebar-transition-speed: 300ms;
 }
 
-#sidebar {
+.main-sidebar {
+    position: absolute;
     width: 0;
     padding: 0;
     overflow: hidden;
     transition: width var(--sidebar-transition-speed);
+    z-index: 9999;
 }
 
-#main {
+.main-sidebar.active {
+    width: 400px;
+}
+
+.main-content {
     width: 100%;
     overflow: hidden;
     transition: width var(--sidebar-transition-speed);
 }
 
 @media screen and (min-width: 992px) {
-    #sidebar {
+    .main-sidebar {
+        position: static;
         width: 25%;
     }
 
-    #main {
+    .main-content {
         width: 75%;
     }
 }
 
 @media screen and (min-width: 1200px) {
-    #sidebar {
+    .main-sidebar {
         width: 20%;
     }
 
-    #main {
+    .main-content {
         width: 80%;
     }
+}
+
+/* Loader */
+.loader {
+    display: none;
+    transition: opacity 300ms ease-in;
+}
+
+.htmx-request .loader {
+    display: block;
+}
+
+.htmx-request.loader {
+    display: block;
+}
+
+.spinner-backdrop {
+    position: absolute;
+    inset: 0 0;
+    height: 100vh;
+    width: 100%;
+    background-color: grey;
+    opacity: 40%;
+}
+
+#spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 9999;
 }
