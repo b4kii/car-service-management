@@ -62,5 +62,6 @@ class App
             $this->request["uri"],
             $this->request["method"]
         );
+        dd($_SESSION);
     }
 }

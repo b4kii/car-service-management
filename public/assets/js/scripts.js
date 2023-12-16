@@ -3,7 +3,7 @@
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
-/* Offcanvas hide fix */
+/* Sidebar */
 
 const sidebarBtnEl = document.querySelector("#sidebarBtn");
 const sidebarEl = document.querySelector("#sidebar");

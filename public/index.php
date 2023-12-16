@@ -2,12 +2,9 @@
 
 declare(strict_types=1);
 
-//phpinfo();
-//exit;
 session_start();
 
-$_SESSION["user"] = ["name" => "baki", "role" => "admin"];
-session_unset();
+//$_SESSION["user"] = ["name" => "baki", "role" => "admin"];
 
 use App\App;
 use App\Core\Commons\Router;
@@ -38,4 +35,3 @@ require_once base_path("app/routes.php");
     ->boot()
     ->run();
 
-Session::unflash();
