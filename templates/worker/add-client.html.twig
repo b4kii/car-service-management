@@ -1,0 +1,77 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Dodaj klienta
+{% endblock title %}
+
+{% block sidebar %}
+{% endblock sidebar %}
+
+{% block main %}
+    {% set errors =  get("errors") %}
+    <h1 class="text-center">Dodaj klienta</h1>
+    <form class="row" action="/add-client" method="POST">
+        <div class="col">
+            <div class="container d-flex flex-column justify-content-center align-items-center gap-3 w-50">
+                    <div class="form-floating w-100">
+                        <input id="firstname" type="text" name="firstname" value="{{ get("old").firstname }}" class="form-control form-control-lg {{ errors.firstname ? 'is-invalid' : '' }}">
+                        <label for="username">Imie</label>
+                        <span class="invalid-feedback">{{ errors.firstname | first }}</span>
+                    </div>
+                    <div class="form-floating w-100">
+                        <input id="lastname" type="text" name="lastname" class="form-control form-control-lg {{ errors.lastname ? 'is-invalid' : '' }}">
+                        <label for="password">Nazwisko</label>
+                        <span class="invalid-feedback">{{ errors.lastname | first }}</span>
+                    </div>
+                    <div class="form-floating w-100">
+                        <input id="NIP" type="text" name="NIP" class="form-control form-control-lg {{ errors.NIP ? 'is-invalid' : '' }}">
+                        <label for="password">NIP</label>
+                        <span class="invalid-feedback">{{ errors.NIP | first }}</span>
+                    </div>
+                    <div class="form-floating w-100">
+                        <select id="type" type="text" name="type" class="form-select form-control-lg {{ errors.type ? 'is-invalid' : '' }}">
+                            <option value="Individual">Individual</option>
+                            <option value="Company">Company</option>
+                        </select>
+                        <label for="password">Typ</label>
+                        <span class="invalid-feedback">{{ errors.type | first }}</span>
+                    </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="container d-flex flex-column justify-content-center align-items-center gap-3 w-50">
+                <div class="form-floating w-100">
+                    <input id="city" type="text" name="city" class="form-control form-control-lg {{ errors.city ? 'is-invalid' : '' }}">
+                    <label for="city">Miasto</label>
+                    <span class="invalid-feedback">{{ errors.city | first }}</span>
+                </div>
+                <div class="form-floating w-100">
+                    <input id="street" type="text" name="street" class="form-control form-control-lg {{ errors.street ? 'is-invalid' : '' }}">
+                    <label for="street">Ulica</label>
+                    <span class="invalid-feedback">{{ errors.street | first }}</span>
+                </div>
+                <div class="form-floating w-100">
+                    <input id="postCode" type="text" name="postCode" class="form-control form-control-lg {{ errors.postCode ? 'is-invalid' : '' }}">
+                    <label for="postCode">Kod pocztowy</label>
+                    <span class="invalid-feedback">{{ errors.postCode | first }}</span>
+                </div>
+                <div class="form-floating w-100">
+                    <input id="houseNumber" type="text" name="houseNumber" class="form-control form-control-lg {{ errors.houseNumber ? 'is-invalid' : '' }}">
+                    <label for="houseNumber">Numer domu</label>
+                    <span class="invalid-feedback">{{ errors.houseNumber | first }}</span>
+                </div>
+                <div class="form-floating w-100">
+                    <input id="phone" type="text" name="phone" class="form-control form-control-lg {{ errors.phone ? 'is-invalid' : '' }}">
+                    <label for="phone">Numer telefonu</label>
+                    <span class="invalid-feedback">{{ errors.phone | first }}</span>
+                </div>
+                <div class="form-floating w-100">
+                    <input id="email" type="text" name="email" class="form-control form-control-lg {{ errors.email ? 'is-invalid' : '' }}">
+                    <label for="email">Email</label>
+                    <span class="invalid-feedback">{{ errors.email | first }}</span>
+                </div>
+                <button class="btn btn-outline-success w-100">Dodaj klienta</button>
+            </div>
+        </div>
+    </form>
+{% endblock main %}
