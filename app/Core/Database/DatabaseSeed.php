@@ -15,11 +15,15 @@ class DatabaseSeed {
         try
         {
             $this->createTables();
-            $this->seedAddressData();
-            $this->seedUserData();
-            $this->seedClientData();
-            $this->seedCarData();
-            $this->seedServiceData();
+
+            if ($this->database->isEmpty("Address"))
+            {
+                $this->seedAddressData();
+                $this->seedUserData();
+                $this->seedClientData();
+                $this->seedCarData();
+                $this->seedServiceData();
+            }
         }catch(\Exception $exception) {
             echo "Error during adding seed data to database or database:
                 {$exception->getMessage()}, line: {$exception->getLine()}, file: {$exception->getFile()}";

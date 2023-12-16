@@ -12,6 +12,7 @@
         "illuminate/container": "^10.33",
         "latte/latte": "^3.0",
         "ext-pdo": "*",
-        "vlucas/valitron": "^1.4"
+        "vlucas/valitron": "^1.4",
+        "ramsey/uuid": "^4.7"
     }
 }
