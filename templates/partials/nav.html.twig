@@ -6,10 +6,17 @@
         {#        TODO: Hide this button when user is not logged in #}
 
         <button
-                class="navbar-toggler d-lg-none"
-                id="sidebarBtn"
+{#                class="navbar-toggler d-lg-none"#}
+{#                id="sidebarBtn"#}
+{#                type="button"#}
+{#                aria-controls="offcanvasExample"#}
+                class="navbar-toggler px-3 text-white d-md-none"
                 type="button"
-                aria-controls="offcanvasExample"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#sidebarMenu"
+                aria-controls="sidebarMenu"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
         >
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -23,23 +30,27 @@
                 {% if user %}
                 <ul class="navbar-nav dropdown">
                     <li class="nav-item">
-                        {#                        TODO: Fix user auth with method or leave this as is #}
                         <a class="nav-link active dropdown-toggle"
                            href="#"
                            role="button"
                            data-bs-toggle="dropdown"
                            aria-expanded="false"
                         >
-                            {{ user.name }}
+                            {{ user.username }}
                         </a>
 
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Profil</a></li>
                             <li><a class="dropdown-item" href="#">Another action</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li>
+                                <form action="/logout" method="POST">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button class="dropdown-item">Wyloguj</button>
+                                </form>
+                            </li>
                         </ul>
                     </li>
                 </ul>

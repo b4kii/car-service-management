@@ -15,11 +15,13 @@ class DatabaseSeed {
         try
         {
             $this->createTables();
-            $this->seedAddressData();
-            $this->seedUserData();
-            $this->seedClientData();
-            $this->seedCarData();
-            $this->seedServiceData();
+            if ($this->database->isEmpty("Address")) {
+                $this->seedAddressData();
+                $this->seedUserData();
+                $this->seedClientData();
+                $this->seedCarData();
+                $this->seedServiceData();
+            }
         }catch(\Exception $exception) {
             echo "Error during adding seed data to database or database:
                 {$exception->getMessage()}, line: {$exception->getLine()}, file: {$exception->getFile()}";
@@ -52,9 +54,9 @@ class DatabaseSeed {
     {
         $columns = ['Login', 'Password', 'Email', 'Phone', 'Role'];
         $data = [
-            ['admin', 'admin123', 'admin@mail.com', '993-213-421', 'Admin'],
-            ['manager', 'manager123', 'manager@mail.com', '993-213-114', 'Manager'],
-            ['worker', 'worker123', 'worker@mail.com', '778-220-410', 'Worker']
+            ['admin', '$2y$10$ck3UCmkxN26r4XxVRwmZT.aR/8u6aTLwBq6soBnZYaUkPRwjCbuyC', 'admin@mail.com', '993-213-421', 'Admin'],
+            ['manager', '$2y$10$jRxoGp2eT.pf08m7aNRl/OE2b581Cb5jc/l1Shnwx8WVjJkPDqQxq', 'manager@mail.com', '993-213-114', 'Manager'],
+            ['worker', '$2y$10$2Rakb6E6Blp/.Jer52r5e.N5b7xbbtYzeKcfnHNup39LcchpnCNN.', 'worker@mail.com', '778-220-410', 'Worker']
         ];
         
         $this->database->insertRecords('User', $columns, $data);

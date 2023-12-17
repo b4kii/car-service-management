@@ -4,15 +4,18 @@ namespace App\Controllers;
 
 use App\Core\Commons\Session;
 use App\Core\Twig\Twig;
+use App\Models\LoginModel;
 use Valitron\Validator;
 
 class LoginController
 {
     public function __construct(
-        public readonly Twig $twig
+        public readonly Twig $twig,
+        public readonly LoginModel $model
 //        public readonly Validator $validator
     )
     {
+    
     }
     
     public function index(): string
@@ -22,9 +25,16 @@ class LoginController
     
     public function store(): string
     {
+        $username = $_POST["username"];
+        $password = $_POST["password"];
+        
         $validator = new Validator($_POST);
         $validator->rule("required", ["username", "password"]);
-        $validator->rule('lengthBetween', 'username', 3, 10);
+        $validator->rule(function ($field, $value, $params, $fields) use ($username, $password) {
+            return $this->model->verifyUser($username, $password);
+        }, ["username", "password"])
+            ->message("Incorrect username or password");
+        
         
         if (!$validator->validate()) {
             Session::flash("errors", [
@@ -32,11 +42,18 @@ class LoginController
                 "password" => $validator->errors("password")
             ]);
             
-            Session::flash("old", ["username" => $_POST["username"]]);
-            
+            Session::flash("old", ["username" => $username]);
             redirect("/login");
         }
         
-        return "test";
+        $this->model->loginUser($username);
+        
+        redirect("/register");
+    }
+    
+    public function logout(): void
+    {
+        Session::destroy("user");
+        redirect("/");
     }
 }

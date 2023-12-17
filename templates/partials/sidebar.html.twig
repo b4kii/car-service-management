@@ -1,14 +1,50 @@
-<aside id="sidebar" class="vh-100 col-lg-3 col-xl-2 border-1 border-end border-dark-subtle main-sidebar bg-body-tertiary" >
-    <div>
-        <div class="form-check form-switch" >
-            <input
-                class="form-check-input"
-                type="checkbox"
-                role="switch"
-                id="themeSwitch"
-                style="cursor: pointer; width: 3rem; height: 1.5rem;"
-                aria-label="theme-switch"
-            >
+<div class="border-end col-md-3 col-lg-2 bg-body-tertiary p-0" id="sidebar">
+    <div class="offcanvas-md offcanvas-start bg-body-tertiary px-3" id="sidebarMenu">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">Dashboard</h5>
+            <button type="button" class="btn-close d-md-none ml-auto" data-bs-dismiss="offcanvas"
+                    data-bs-target="#sidebarMenu" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column justify-content-between" style="height: 80vh;">
+            <ul class="nav flex-column">
+                {% if session.user %}
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            Dodaj klienta
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            Dodaj pracownika
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            Dodaj auto
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            Something
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+            <div class="d-flex justify-content-center align-items-center gap-3 border-top pt-2">
+                <i class="fa-solid fa-sun fs-5"></i>
+                <div class="form-check form-switch">
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        role="switch"
+                        id="themeSwitch"
+                        style="cursor: pointer; height: 1.5rem; width: 3rem;"
+                        aria-label="theme-switch"
+                    >
+                </div>
+                <i class="fa-solid fa-moon fs-5"></i>
+            </div>
         </div>
     </div>
-</aside>
+</div>

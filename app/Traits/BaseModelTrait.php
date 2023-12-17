@@ -18,11 +18,18 @@ trait BaseModelTrait
 
         return $this->database->query($query, $params)->find();
     }
+    
+    public function getOneByCondition($table, $condition)
+    {
+        $query = "SELECT * FROM {$table} WHERE {$condition}";
+        
+        return $this->database->query($query)->find();
+    }
 
     public function getByCondition($table, $condition)
     {
         $query = "SELECT * FROM {$table} WHERE {$condition}";
-
+        
         return $this->database->query($query)->findAll();
     }
 

@@ -4,32 +4,37 @@
     Home
 {% endblock title %}
 
-{% block sidebar %}
-{% endblock sidebar %}
+{# {% block sidebar %} #}
+{# {% endblock sidebar %} #}
 
 {% block main %}
-    <div class="container-fluid d-flex justify-content-center align-items-center">
+    <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="height: calc(100vh - 56px);">
         <form
             hx-get="/service-details"
             hx-swap="outerHTML"
             hx-target="#main-container"
             hx-indicator="#loader-backdrop"
             hx-push-url="true"
+            style="height: max-content"
         >
-            <div class="input-group shadow-sm rounded-3">
-                <input
-                    type="text"
-                    name="clientCode"
-                    class="form-control form-control-lg"
-                    placeholder="Wprowadź kod"
-                    aria-label="customer-code"
-                >
-                <button class="input-group-text">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
+            <div
+                class="container d-flex flex-column justify-content-center align-items-center gap-3 w-25"
+                style="height: calc(100vh - 56px);"
+            >
+                <div class="input-group shadow-sm rounded-3">
+                    <input
+                        type="text"
+                        name="clientCode"
+                        class="form-control form-control-lg "
+                        placeholder="Wprowadź kod"
+                        aria-label="customer-code"
+                    >
+                    <button class="input-group-text">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
             </div>
         </form>
-
     </div>
 {% endblock main %}
 
