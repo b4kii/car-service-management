@@ -29,7 +29,11 @@ class LoginController
         $password = $_POST["password"];
         
         $validator = new Validator($_POST);
-        $validator->rule("required", ["username", "password"]);
+        $validator->rule("required", ["username", "password"])->message("Pole '{field}' jest wymagane");
+        $validator->labels([
+            "username" => "Nazwa użytkownika",
+            "password" => "Hasło"
+        ]);
         $validator->rule(function ($field, $value, $params, $fields) use ($username, $password) {
             return $this->model->verifyUser($username, $password);
         }, ["username", "password"])
