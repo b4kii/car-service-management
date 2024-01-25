@@ -5,30 +5,32 @@ namespace App\Core\Database;
 
 use App\Core\Database\Interfaces\DatabaseInterface;
 
-class DatabaseSeed
-{
+class DatabaseSeed {
     public function __construct(private DatabaseInterface $database)
     {
     }
-    
-    public function seedData(): void
+
+    public function seedData() : void
     {
-        try {
+        try
+        {
             $this->createTables();
-            if ($this->database->isEmpty("Address")) {
+
+            if ($this->database->isEmpty("Address"))
+            {
                 $this->seedAddressData();
                 $this->seedUserData();
                 $this->seedClientData();
                 $this->seedCarData();
                 $this->seedServiceData();
             }
-        } catch (\Exception $exception) {
+        }catch(\Exception $exception) {
             echo "Error during adding seed data to database or database:
                 {$exception->getMessage()}, line: {$exception->getLine()}, file: {$exception->getFile()}";
             exit();
         }
     }
-    
+
     private function createTables()
     {
         $dbFile = file_get_contents(__DIR__ . '/Commons/car-service-management.sql');

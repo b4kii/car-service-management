@@ -1,0 +1,111 @@
+{% extends "/base.html.twig" %}
+
+{% block title %}
+    Dodaj klienta
+{% endblock title %}
+
+{% block sidebar %}
+{% endblock sidebar %}
+
+{% block main %}
+    {% set errors =  get("errors") %}
+    <h1 class="text-center">Dodaj pojazd</h1>
+    <form class="row" action="/add-car" method="POST">
+        <div class="col">
+            <div class="container d-flex flex-column justify-content-center align-items-center gap-3 w-50">
+                <div class="form-floating w-100">
+                    <select id="brand" type="text" name="brand" class="form-select form-control-lg">
+                        <option value="Audi">Audi</option>
+                        <option value="BMW">BMW</option>
+                        <option value="Opel">Opel</option>
+                        <option value="Citroen">Citroen</option>
+                        <option value="Mazda">Mazda</option>
+                        <option value="Volvo">Volvo</option>
+                        <option value="Fiat">Fiat</option>
+                        <option value="Kia">Kia</option>
+                    </select>
+                    <label for="brand">Marka</label>
+                </div>
+                <div class="form-floating w-100">
+                    <input
+                            id="model"
+                            type="text"
+                            name="model"
+                            class="form-control form-control-lg {{ errors.model ? 'is-invalid' : '' }}">
+                    <label for="model">Model</label>
+                    <span class="invalid-feedback">{{ errors.model | first }}</span>
+                </div>
+                <div class="form-floating w-100">
+                    <input
+                            id="identificationNumber"
+                            type="text"
+                            name="identificationNumber"
+                            class="form-control form-control-lg {{ errors.identificationNumber ? 'is-invalid' : '' }}">
+                    <label for="identificationNumber">Numer VIN</label>
+                    <span class="invalid-feedback">{{ errors.identificationNumber | first }}</span>
+                </div>
+                <div class="form-floating w-100">
+                    <select id="clientId" type="number" name="clientId" class="form-select form-control-lg">
+                        {% for client in clients %}
+                            <option value="{{ client.Id }}">{{ client.Firstname ~ ' ' ~ client.Lastname }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="clientId">Klient</label>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="container d-flex flex-column justify-content-center align-items-center gap-3 w-50">
+                <div class="form-floating w-100">
+                    <select id="type" type="text" name="type" class="form-select form-control-lg">
+                        <option value="Combi">Kombi</option>
+                        <option value="Coupe">Coupe</option>
+                        <option value="Cabrio">Kabrio</option>
+                        <option value="Sedan">Sedan</option>
+                        <option value="Suv">SUV</option>
+                        <option value="Hatchback">Hatchback</option>
+                        <option value="Truck">Tir</option>
+                    </select>
+                    <label for="type">Typ</label>
+                </div>
+                <div class="form-floating w-100">
+                    <input
+                            id="color"
+                            type="text"
+                            name="color"
+                            class="form-control form-control-lg {{ errors.color ? 'is-invalid' : '' }}">
+                    <label for="color">Kolor</label>
+                    <span class="invalid-feedback">{{ errors.color | first }}</span>
+                </div>
+                <div class="form-floating w-100">
+                    <input
+                            id="mileage"
+                            type="decimal"
+                            name="mileage"
+                            class="form-control form-control-lg {{ errors.mileage ? 'is-invalid' : '' }}">
+                    <label for="mileage">Przebieg</label>
+                    <span class="invalid-feedback">{{ errors.mileage | first }}</span>
+                </div>
+                <div class="form-floating w-100">
+                    <input
+                            id="engineCapacity"
+                            type="decimal"
+                            name="engineCapacity"
+                            class="form-control form-control-lg {{ errors.engineCapacity ? 'is-invalid' : '' }}">
+                    <label for="engineCapacity">Pojemność silnika</label>
+                    <span class="invalid-feedback">{{ errors.engineCapacity | first }}</span>
+                </div>
+                <div class="form-floating w-100">
+                    <input
+                            id="submissionDate"
+                            type="datetime-local"
+                            name="submissionDate"
+                            class="form-control form-control-lg {{ errors.submissionDate ? 'is-invalid' : '' }}">
+                    <label for="submissionDate">Przewidywana data oddania</label>
+                    <span class="invalid-feedback">{{ errors.submissionDate | first }}</span>
+                </div>
+                <button class="btn btn-outline-success w-100">Dodaj pojazd</button>
+            </div>
+        </div>
+    </form>
+{% endblock main %}
