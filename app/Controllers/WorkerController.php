@@ -4,7 +4,9 @@ namespace App\Controllers;
 
 use App\Core\Commons\Session;
 use App\Core\Twig\Twig;
+use App\Enums\CarStatus;
 use App\Models\WorkerModel;
+use DateTime;
 use Ramsey\Uuid\Uuid;
 use Valitron\Validator;
 
@@ -14,14 +16,22 @@ class WorkerController
     {
     }
 
-    public function index()
+    public function addClientIndex()
     {
-        return $this->twig->render('worker/add-client.html.twig');
+        return $this->twig->render('worker/create/add-client.html.twig');
+    }
+
+    public function addCarIndex()
+    {
+        $clients = $this->model->getAll("Client");
+
+        return $this->twig->render('worker/create/add-car.html.twig', [
+            "clients" => $clients
+        ]);
     }
 
     public function addClient()
     {
-        // LOGIKA DO GENEROWANIA KODU KLIENTA
         $validator = new Validator($_POST);
         $validator->rules([
             "required" => [
@@ -74,6 +84,91 @@ class WorkerController
             redirect("/add-client");
         }
 
-        $this->model->addClient([$firstname, $lastname, $nip, $code, $type]);
+        $addressData = [
+            'City' => $city,
+            'Street' => $street,
+            'PostCode' => $postCode,
+            'HouseNumber' => $houseNumber,
+            'Phone' => $phone,
+            'Email' => $email
+        ];
+        $addressId = $this->model->addAddress($addressData);
+
+        $clientData = [
+            'AddressId' => $addressId,
+            'Firstname' => $firstname,
+            'Lastname' => $lastname,
+            'NIP' => $nip,
+            'Code' => $code,
+            'Type' => $type
+        ];
+        $this->model->addClient($clientData);
+    }
+
+    public function addCar()
+    {
+        // dodać workerId z sesji
+        $validator = new Validator($_POST);
+        $validator->rules([
+            "required" => [
+                ["model"],
+                ["identificationNumber"],
+                ["color"],
+                ["mileage"],
+                ["engineCapacity"],
+                ["submissionDate"],
+            ],
+            "lengthBetween" => [
+                ["model", 1, 20],
+                ["identificationNumber", 1, 15],
+                ["color", 1, 15],
+                ["mileage", 1, 20],
+                ["engineCapacity", 1, 20],
+            ],
+        ]);
+
+        $brand = $_POST["brand"];
+        $model = $_POST["model"];
+        $identificationNumber = $_POST["identificationNumber"];
+        $clientId = $_POST["clientId"];
+        $type = $_POST["type"];
+        $color = $_POST["color"];
+        $mileage = $_POST["mileage"];
+        $engineCapacity = $_POST["engineCapacity"];
+        $submissionDate = $_POST["submissionDate"];
+
+        if (!$validator->validate())
+        {
+            Session::flash("errors", [
+                "brand" => $validator->errors("brand"),
+                "model" => $validator->errors("model"),
+                "identificationNumber" => $validator->errors("identificationNumber"),
+                "clientId" => $validator->errors("clientId"),
+                "type" => $validator->errors("type"),
+                "color" => $validator->errors("color"),
+                "mileage" => $validator->errors("mileage"),
+                "engineCapacity" => $validator->errors("engineCapacity"),
+                "submissionDate" => $validator->errors("submissionDate"),
+            ]);
+
+            redirect("/add-car");
+        }
+
+        $carData = [
+            'clientId' => $clientId,
+            'workerId' => 1,
+            'brand' => $brand,
+            'model' => $model,
+            'identificationNumber' => $identificationNumber,
+            'color' => $color,
+            'mileage' => $mileage,
+            'engineCapacity' => $engineCapacity,
+            'type' => $type,
+            'status' => CarStatus::New->name,
+            'admissionDate' => (new DateTime())->format('Y-m-d H:i:s'),
+            'submissionDate' => $submissionDate
+        ];
+
+        $this->model->addCar($carData);
     }
 }
