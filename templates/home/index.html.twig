@@ -4,34 +4,31 @@
     Home
 {% endblock title %}
 
-{# {% block sidebar %} #}
-{# {% endblock sidebar %} #}
-
 {% block main %}
+    {% set errors =  get("errors") %}
     <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="height: calc(100vh - 56px);">
         <form
-            hx-get="/service-details"
-            hx-swap="outerHTML"
-            hx-target="#main-container"
-            hx-indicator="#loader-backdrop"
-            hx-push-url="true"
+            action="/service-details"
+            method="GET"
             style="height: max-content"
         >
             <div
                 class="container d-flex flex-column justify-content-center align-items-center gap-3 "
                 style="height: calc(100vh - 56px);"
             >
-                <div class="input-group shadow-sm rounded-3 w-50">
+                <div class="input-group rounded-3 w-50">
                     <input
                         type="text"
                         name="clientCode"
-                        class="form-control form-control-lg"
+                        class="form-control form-control-lg {{ errors.clientCode ? 'is-invalid' : '' }}"
                         placeholder="Wprowadź kod"
                         aria-label="customer-code"
+                        value="{{ get("old").clientCode }}"
                     >
-                    <button class="input-group-text">
+                    <button class="btn btn-secondary rounded-end">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
+                    <span class="invalid-feedback">{{ errors.clientCode | first }}</span>
                 </div>
             </div>
         </form>

@@ -4,47 +4,44 @@
     Login
 {% endblock title %}
 
-{#{% block sidebar %}#}
-{#{% endblock sidebar %}#}
-
 {% block main %}
 
-<div class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="height: calc(100vh - 56px);">
-    <form action="/login" method="POST" style="width: 350px; height: max-content;" class="mx-auto my-5" >
-        <div
-            class="d-flex flex-column gap-4 p-5 border border-1 rounded shadow-sm mx-auto"
-        >
-            <h1 class="text-center mb-5">Logowanie</h1>
-            {% set errors =  get("errors") %}
-            <div class="form-floating">
-                <input id="username"
-                       type="text"
-                       name="username"
-                       placeholder=" "
-                       value="{{ get("old").username }}"
-                       class="form-control form-control-lg {{ errors.username ? 'is-invalid' : '' }}"
-                       autofocus
-                >
-                <label for="username">Nazwa użytkownika</label>
-                <span class="invalid-feedback">{{ errors.username | first }}</span>
-            </div>
-            <div class="form-floating">
-                <input id="password"
-                       type="password"
-                       name="password"
-                       placeholder=" "
-                       class="form-control form-control-lg {{ errors.password ? 'is-invalid' : '' }}"
-                >
-                <label for="password">Hasło</label>
-                <span class="invalid-feedback">{{ errors.password | first }}</span>
-            </div>
+    <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="height: calc(100vh - 56px);">
+        <form action="/login" method="POST" style="width: 350px; height: max-content; margin-left: 25%;" class="my-5">
+            <div
+                class="d-flex flex-column gap-4 p-5 border border-1 rounded shadow-sm mx-auto"
+            >
+                <h1 class="text-center mb-5">Logowanie</h1>
+                {% set errors =  get("errors") %}
+                <div class="form-floating">
+                    <input id="username"
+                           type="text"
+                           name="username"
+                           placeholder=" "
+                           value="{{ get("old").username }}"
+                           class="form-control form-control-lg {{ errors.username ? 'is-invalid' : '' }}"
+                           autofocus
+                    >
+                    <label for="username">Nazwa użytkownika</label>
+                    <span class="invalid-feedback">{{ errors.username | first }}</span>
+                </div>
+                <div class="form-floating">
+                    <input id="password"
+                           type="password"
+                           name="password"
+                           placeholder=" "
+                           class="form-control form-control-lg {{ errors.password ? 'is-invalid' : '' }}"
+                    >
+                    <label for="password">Hasło</label>
+                    <span class="invalid-feedback">{{ errors.password | first }}</span>
+                </div>
 
-            <button class="btn btn-lg btn-secondary">
-                Zaloguj się
-            </button>
-            <a href="" class="link text-body mx-auto">Zapomniałeś hasła?</a>
+                <button class="btn btn-lg btn-secondary">
+                    Zaloguj się
+                </button>
+                <a href="" class="link text-body mx-auto">Zapomniałeś hasła?</a>
 
-        </div>
-    </form>
-</div>
+            </div>
+        </form>
+    </div>
 {% endblock main %}

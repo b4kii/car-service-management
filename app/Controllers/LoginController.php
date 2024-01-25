@@ -12,7 +12,6 @@ class LoginController
     public function __construct(
         public readonly Twig $twig,
         public readonly LoginModel $model
-//        public readonly Validator $validator
     )
     {
     
@@ -37,7 +36,7 @@ class LoginController
         $validator->rule(function ($field, $value, $params, $fields) use ($username, $password) {
             return $this->model->verifyUser($username, $password);
         }, ["username", "password"])
-            ->message("Incorrect username or password");
+            ->message("Niepoprawna nazwa użytkownika lub hasło");
         
         
         if (!$validator->validate()) {
