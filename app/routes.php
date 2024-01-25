@@ -19,5 +19,7 @@ $router->get("/register", [RegisterController::class, "index"]);
 $router->post("/service-details", [ClientController::class, "serviceDetails"]);
 
 // worker controller
-$router->get("/add-client", [WorkerController::class, "index"]);
+$router->get("/add-client", [WorkerController::class, "addClientIndex"]);
 $router->post("/add-client", [WorkerController::class, "addClient"]);
+$router->get("/add-car", [WorkerController::class, "addCarIndex"]);
+$router->post("/add-car", [WorkerController::class, "addCar"]);
