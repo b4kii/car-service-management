@@ -2,8 +2,14 @@
 
 namespace App\Controllers;
 
-class ClientController extends BaseController
+use App\Core\Twig\Twig;
+
+class ClientController
 {
+    public function __construct(public readonly Twig $twig)
+    {
+    }
+
     public function serviceDetails(): string
     {
 //        $clientCode = $_POST["clientCode"];
