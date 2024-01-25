@@ -1,0 +1,127 @@
+{% extends "/base.html.twig" %}
+
+{% block title %}
+    Edytuj pojazd
+{% endblock title %}
+
+{% block sidebar %}
+{% endblock sidebar %}
+
+{% block main %}
+    {% set errors =  get("errors") %}
+    <h1 class="text-center">Edytuj pojazd</h1>
+    <form class="row" action="/update-car?id={{ carModel.Id }}" method="POST">
+        <div class="col">
+            <div class="container d-flex flex-column justify-content-center align-items-center gap-3 w-50">
+                <div class="form-floating w-100">
+                    <input
+                            id="carId"
+                            type="text"
+                            name="carId"
+                            value="{{ carModel.Id }}"
+                            readonly
+                            class="form-control form-control-lg">
+                    <label for="carId">ID</label>
+                </div>
+                <div class="form-floating w-100">
+                    <select id="brand" type="text" name="brand" class="form-select form-control-lg">
+                        <option value="Audi" {{ carModel.Brand == 'Audi' ? 'selected' : '' }}>Audi</option>
+                        <option value="BMW" {{ carModel.Brand == 'BMW' ? 'selected' : '' }}>BMW</option>
+                        <option value="Opel" {{ carModel.Brand == 'Opel' ? 'selected' : '' }}>Opel</option>
+                        <option value="Citroen" {{ carModel.Brand == 'Citroen' ? 'selected' : '' }}>Citroen</option>
+                        <option value="Mazda" {{ carModel.Brand == 'Mazda' ? 'selected' : '' }}>Mazda</option>
+                        <option value="Volvo" {{ carModel.Brand == 'Volvo' ? 'selected' : '' }}>Volvo</option>
+                        <option value="Fiat" {{ carModel.Brand == 'Fiat' ? 'selected' : '' }}>Fiat</option>
+                        <option value="Kia" {{ carModel.Brand == 'Kia' ? 'selected' : '' }}>Kia</option>
+                    </select>
+                    <label for="brand">Marka</label>
+                </div>
+                <div class="form-floating w-100">
+                    <select id="status" type="text" name="status" class="form-select form-control-lg">
+                        <option value="New" {{ carModel.Status == 'New' ? 'selected' : '' }}>Nowy</option>
+                        <option value="InProgress" {{ carModel.Status == 'InProgress' ? 'selected' : '' }}>W trakcie naprawy</option>
+                        <option value="Finished" {{ carModel.Status == 'Finished' ? 'selected' : '' }}>Zakończony</option>
+                    </select>
+                    <label for="status">Status</label>
+                </div>
+                <div class="form-floating w-100">
+                    <input
+                            id="model"
+                            type="text"
+                            name="model"
+                            value="{{ carModel.Model }}"
+                            class="form-control form-control-lg {{ errors.model ? 'is-invalid' : '' }}">
+                    <label for="model">Model</label>
+                    <span class="invalid-feedback">{{ errors.model | first }}</span>
+                </div>
+                <div class="form-floating w-100">
+                    <input
+                            id="identificationNumber"
+                            type="text"
+                            name="identificationNumber"
+                            value="{{ carModel.IdentificationNumber }}"
+                            class="form-control form-control-lg {{ errors.identificationNumber ? 'is-invalid' : '' }}">
+                    <label for="identificationNumber">Numer VIN</label>
+                    <span class="invalid-feedback">{{ errors.identificationNumber | first }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="container d-flex flex-column justify-content-center align-items-center gap-3 w-50">
+                <div class="form-floating w-100">
+                    <select id="type" type="text" name="type" class="form-select form-control-lg">
+                        <option value="Combi" {{ carModel.Type == 'Combi' ? 'selected' : '' }}>Kombi</option>
+                        <option value="Coupe" {{ carModel.Type == 'Coupe' ? 'selected' : '' }}>Coupe</option>
+                        <option value="Cabrio" {{ carModel.Type == 'Cabrio' ? 'selected' : '' }}>Kabrio</option>
+                        <option value="Sedan" {{ carModel.Type == 'Sedan' ? 'selected' : '' }}>Sedan</option>
+                        <option value="Suv" {{ carModel.Type == 'Suv' ? 'selected' : '' }}>SUV</option>
+                        <option value="Hatchback" {{ carModel.Type == 'Hatchback' ? 'selected' : '' }}>Hatchback</option>
+                        <option value="Truck" {{ carModel.Type == 'Truck' ? 'selected' : '' }}>Tir</option>
+                    </select>
+                    <label for="type">Typ</label>
+                </div>
+                <div class="form-floating w-100">
+                    <input
+                            id="color"
+                            type="text"
+                            name="color"
+                            value="{{ carModel.Color }}"
+                            class="form-control form-control-lg {{ errors.color ? 'is-invalid' : '' }}">
+                    <label for="color">Kolor</label>
+                    <span class="invalid-feedback">{{ errors.color | first }}</span>
+                </div>
+                <div class="form-floating w-100">
+                    <input
+                            id="mileage"
+                            type="decimal"
+                            name="mileage"
+                            value="{{ carModel.Mileage }}"
+                            class="form-control form-control-lg {{ errors.mileage ? 'is-invalid' : '' }}">
+                    <label for="mileage">Przebieg</label>
+                    <span class="invalid-feedback">{{ errors.mileage | first }}</span>
+                </div>
+                <div class="form-floating w-100">
+                    <input
+                            id="engineCapacity"
+                            type="decimal"
+                            name="engineCapacity"
+                            value="{{ carModel.EngineCapacity }}"
+                            class="form-control form-control-lg {{ errors.engineCapacity ? 'is-invalid' : '' }}">
+                    <label for="engineCapacity">Pojemność silnika</label>
+                    <span class="invalid-feedback">{{ errors.engineCapacity | first }}</span>
+                </div>
+                <div class="form-floating w-100">
+                    <input
+                            id="submissionDate"
+                            type="datetime-local"
+                            name="submissionDate"
+                            value="{{ carModel.SubmissionDate }}"
+                            class="form-control form-control-lg {{ errors.submissionDate ? 'is-invalid' : '' }}">
+                    <label for="submissionDate">Przewidywana data oddania</label>
+                    <span class="invalid-feedback">{{ errors.submissionDate | first }}</span>
+                </div>
+                <button class="btn btn-outline-success w-100">Edytuj pojazd</button>
+            </div>
+        </div>
+    </form>
+{% endblock main %}
