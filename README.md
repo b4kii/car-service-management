@@ -56,6 +56,31 @@ Aplikacja jest podzielona na 3 osobne gałęzie. </br></br>
 |LOGIN: worker HASŁO: worker123       |LOGIN: admin HASŁO: admin123                             |  
 |LOGIN: manager HASŁO: manager123     |                                                         |
 
-## Instalacja
-More information soon...
+## Instalacja i uruchomienie
+
+1. Pobranie i zainstalowanie programu xampp.
+2. Edycja plików konfiguracyjnych serwera apache  
+     ```C:\xampp\apache\conf\httpd.conf```  
+    ```Listen 8080```  
+    oraz  
+    ```C:\xampp\apache\conf\extra\httpd-vhosts.conf``` 
+    
+    ```
+    <VirtualHost *:8080>
+	    ServerName localhost
+    	DocumentRoot "C:/xampp/htdocs/car-service-management/public"
+    	<Directory "C:/xampp/htdocs/car-service-management/public/">
+	    	Options +Indexes -FollowSymLinks
+	    	AllowOverride All
+	    	Require all granted
+    	</Directory>
+    </VirtualHost> 
+3. Sklonowanie repozytorium  
+    ```git clone https://github.com/b4kii/car-service-management.git C:\xampp\htdocs```
+4. Stworzenie bazy danych w mysql xampp  
+   ```CREATE DATABASE car_service_management```
+5. Pobranie menadżera pakietów ```composer```  
+   ```https://getcomposer.org/Composer-Setup.exe```
+6. Uruchomienie projektu w IDE oraz zainstalowanie potrzebnych bibliotek  
+   ```composer install```
 
