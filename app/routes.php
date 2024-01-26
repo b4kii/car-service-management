@@ -17,10 +17,22 @@ $router->delete("/logout", [LoginController::class, "logout"]);
 // register controller
 $router->get("/register", [RegisterController::class, "index"]);
 
-$router->post("/service-details", [ClientController::class, "serviceDetails"]);
+$router->get("/service-details", [ClientController::class, "serviceDetails"]);
 
 // worker controller
-$router->get("/add-client", [WorkerController::class, "addClientIndex"]);
-$router->post("/add-client", [WorkerController::class, "addClient"]);
-$router->get("/add-car", [WorkerController::class, "addCarIndex"]);
-$router->post("/add-car", [WorkerController::class, "addCar"]);
+$router->get("/add-client", [WorkerController::class, "addClientIndex"])->middleware("auth:Admin,Manager,Worker");
+$router->post("/add-client", [WorkerController::class, "addClient"])->middleware("auth:Admin,Manager,Worker");
+$router->get("/add-car", [WorkerController::class, "addCarIndex"])->middleware("auth:Admin,Manager,Worker");
+$router->post("/add-car", [WorkerController::class, "addCar"])->middleware("auth:Admin,Manager,Worker");
+$router->get("/worker-cars", [WorkerController::class, "carListIndex"])->middleware("auth:Admin,Manager,Worker");
+
+// profile
+$router->get("/profile", [WorkerController::class, "profileIndex"])->middleware("auth:Admin,Manager,Worker");
+$router->get("/profile-edit", [WorkerController::class, "editProfileIndex"])->middleware("auth:Admin,Manager,Worker");
+$router->post("/profile-edit", [WorkerController::class, "editProfile"])->middleware("auth:Admin,Manager,Worker");
+
+//TODO:
+//    endpointy z middlewarami edit worker add worker admin
+//    readme
+//    spiac nowe endpointy
+//    spiac caly projekt

@@ -12,7 +12,8 @@ class SessionExtension extends AbstractExtension implements GlobalsInterface
     public function getGlobals(): array
     {
         return [
-            "session" => $_SESSION
+            "session" => $_SESSION,
+            "url" => $_SERVER["REQUEST_URI"],
         ];
     }
     
@@ -27,4 +28,5 @@ class SessionExtension extends AbstractExtension implements GlobalsInterface
     {
         return Session::get($key);
     }
+    
 }

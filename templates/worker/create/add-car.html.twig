@@ -1,13 +1,16 @@
 {% extends "/base.html.twig" %}
 
 {% block title %}
-    Dodaj klienta
+    Dodaj pojazd
 {% endblock title %}
 
-{% block sidebar %}
-{% endblock sidebar %}
+{#{% block sidebar %}#}
+{#{% endblock sidebar %}#}
 
 {% block main %}
+<div
+    class="col-md-9 ms-sm-auto col-lg-10 px-md-4 d-flex flex-column gap-2 my-5"
+    style="min-height: calc(100vh - 56px);">
     {% set errors =  get("errors") %}
     <h1 class="text-center">Dodaj pojazd</h1>
     <form class="row" action="/add-car" method="POST">
@@ -108,4 +111,5 @@
             </div>
         </div>
     </form>
+</div>
 {% endblock main %}

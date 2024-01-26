@@ -1,0 +1,74 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Dodaj pojazd
+{% endblock title %}
+
+{% block main %}
+    <div
+        class="col-md-9 ms-sm-auto col-lg-10 px-md-4 d-flex flex-column gap-2 my-5"
+        style="min-height: calc(100vh - 56px);">
+        <h1>Edytuj profil</h1>
+        {% set errors =  get("errors") %}
+        <form action="/profile-edit" method="POST">
+
+            <div class="w-25 d-flex flex-column gap-2">
+                <div class="form-floating">
+                    <input
+                        id="firstname"
+                        name="firstname"
+                        type="text"
+                        placeholder=" "
+                        class="form-control {{ errors.firstname ? 'is-invalid' : '' }}"
+                        value="{{ get("old").firstname ?? worker.Firstname }}"
+                    >
+                    <label for="firstname">Imię</label>
+                    <span class="invalid-feedback">{{ errors.firstname | first }}</span>
+                </div>
+                <div class="form-floating">
+                    <input
+                        id="lastname"
+                        name="lastname"
+                        type="text"
+                        placeholder=" "
+                        class="form-control {{ errors.lastname ? 'is-invalid' : '' }}"
+                        value="{{ get("old").lastname ?? worker.Lastname }}"
+                    >
+                    <label for="lastname">Nazwisko</label>
+                    <span class="invalid-feedback">{{ errors.lastname | first }}</span>
+                </div>
+                <div class="form-floating">
+                    <input
+                        id="email"
+                        name="email"
+                        type="text"
+                        placeholder=" "
+                        class="form-control {{ errors.email ? 'is-invalid' : '' }}"
+                        value="{{ get("old").email ?? worker.Email }}"
+                    >
+                    <label for="email">Email</label>
+                    <span class="invalid-feedback">{{ errors.email | first }}</span>
+                </div>
+                <div class="form-floating">
+                    <input
+                        id="phone"
+                        name="phone"
+                        type="text"
+                        placeholder=" "
+                        class="form-control {{ errors.phone ? 'is-invalid' : '' }}"
+                        value="{{ get("old").phone ?? worker.Phone }}"
+                    >
+                    <label for="phone">Numer telefonu</label>
+                    <span class="invalid-feedback">{{ errors.phone | first }}</span>
+                </div>
+
+                <input type="hidden" name="workerId" value="{{ worker.Id }}">
+
+                <div class="mt-2">
+                    <a href="/profile" class="btn btn-success">Anuluj</a>
+                    <button class="btn btn-danger">Zapisz</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock main %}

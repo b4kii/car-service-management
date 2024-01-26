@@ -1,7 +1,5 @@
 <?php
 
-//TODO: Add validator, improve middleware
-
 namespace App;
 
 use App\Core\Commons\BaseConfig;

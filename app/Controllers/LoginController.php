@@ -51,7 +51,7 @@ class LoginController
         
         $this->model->loginUser($username);
         
-        redirect("/register");
+        redirect("/profile");
     }
     
     public function logout(): void

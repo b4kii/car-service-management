@@ -41,7 +41,6 @@ class ClientController
         
         $cars = $this->model->getClientServiceDetails($clientCode);
         $client = $this->model->getClientDetails($clientCode);
-//        dd($client);
         
         return $this->twig->render("client/service-details.html.twig", [
             "clientCode" => $clientCode,

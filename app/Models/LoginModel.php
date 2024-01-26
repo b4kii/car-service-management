@@ -11,6 +11,7 @@ class LoginModel extends BaseModel
         $user = $this->getUser("Login = '{$username}'");
         
         $user = [
+            "id" => $user["Id"],
             "username" => $user["Login"],
             "role" => $user["Role"],
             "firstName" => "First name",

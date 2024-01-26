@@ -1,0 +1,97 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Dodaj pojazd
+{% endblock title %}
+
+{% block main %}
+    <div
+        class="col-md-9 ms-sm-auto col-lg-10 px-md-4 d-flex flex-column gap-2 my-5"
+        style="min-height: calc(100vh - 56px);">
+        <h1>Profil</h1>
+
+        <div class="w-25 d-flex flex-column gap-2">
+            <div class="form-floating">
+                <input
+                    id="firstname"
+                    name="firstname"
+                    type="text"
+                    placeholder=" "
+                    value="{{ worker.Firstname }}"
+                    disabled
+                    class="form-control"
+                >
+                <label for="firstname">Imię</label>
+            </div>
+
+            <div class="form-floating">
+                <input
+                    id="lastname"
+                    name="lastname"
+                    type="text"
+                    placeholder=" "
+                    value="{{ worker.Lastname }}"
+                    class="form-control"
+                    disabled
+                >
+                <label for="lastname">Nazwisko</label>
+            </div>
+
+            <div class="form-floating">
+                <input
+                    id="email"
+                    name="email"
+                    type="text"
+                    placeholder=" "
+                    value="{{ worker.Email }}"
+                    disabled
+                    class="form-control"
+                >
+                <label for="email">Email</label>
+            </div>
+
+            <div class="form-floating">
+                <input
+                    id="login"
+                    name="login"
+                    type="text"
+                    placeholder=" "
+                    value="{{ worker.Login }}"
+                    disabled
+                    class="form-control"
+                >
+                <label for="login">Login</label>
+            </div>
+
+            <div class="form-floating">
+                <input
+                    id="phone"
+                    name="phone"
+                    type="text"
+                    placeholder=" "
+                    value="{{ worker.Phone }}"
+                    disabled
+                    class="form-control"
+                >
+                <label for="phone">Nr. telefonu</label>
+            </div>
+
+            <div class="form-floating">
+                <input
+                    id="role"
+                    name="role"
+                    type="text"
+                    placeholder=" "
+                    value="{{ worker.Role }}"
+                    disabled
+                    class="form-control"
+                >
+                <label for="role">Rola</label>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <a href="/profile-edit?id={{ worker.Id }}" class="btn btn-primary">Edytuj profil</a>
+        </div>
+    </div>
+{% endblock main %}
