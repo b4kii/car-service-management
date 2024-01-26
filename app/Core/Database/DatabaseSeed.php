@@ -56,9 +56,9 @@ class DatabaseSeed {
     {
         $columns = ['Firstname', 'Lastname', 'Login', 'Password', 'Email', 'Phone', 'Role'];
         $data = [
-            ['Karol', 'Kowalski', 'admin', 'admin123', 'admin@mail.com', '993-213-421', 'Admin'],
-            ['Damian', 'Szybki', 'manager', 'manager123', 'manager@mail.com', '993-213-114', 'Manager'],
-            ['Zenon', 'Mily', 'worker', 'worker123', 'worker@mail.com', '778-220-410', 'Worker']
+            ['Karol', 'Kowalski', 'admin', '$2y$10$ck3UCmkxN26r4XxVRwmZT.aR/8u6aTLwBq6soBnZYaUkPRwjCbuyC', 'admin@mail.com', '993-213-421', 'Admin'],
+            ['Damian', 'Szybki', 'manager', '$2y$10$jRxoGp2eT.pf08m7aNRl/OE2b581Cb5jc/l1Shnwx8WVjJkPDqQxq', 'manager@mail.com', '993-213-114', 'Manager'],
+            ['Zenon', 'Mily', 'worker', '$2y$10$2Rakb6E6Blp/.Jer52r5e.N5b7xbbtYzeKcfnHNup39LcchpnCNN.', 'worker@mail.com', '778-220-410', 'Worker']
         ];
         
         $this->database->insertRecords('User', $columns, $data);
@@ -97,8 +97,10 @@ class DatabaseSeed {
         $columns = ['CarId', 'Name', 'Cost', 'Comment'];
         $data = [
             [1, 'Wymiana klocków przód', 150.00, null],
+            [1, 'Wymiana klocków tył', 200.00, null],
             [1, 'Zmiana opon', 250.00, 'Problem przy odkręceniu tylnego, lewego koła'],
             [3, 'Wymiana wycieraczek', 50.00, null],
+            [3, 'Wymiana tapicerki', 100.00, null],
             [3, 'Mycie', 350.00, 'Auto zostało umyte wewnątrz oraz z zewnątrz'],
             [3, 'Ładowanie akumulatora', 0.00, 'Samochód nie chciał odpalić po dłużej przerwie'],
             [3, 'Wymiana poduszek silnika', 200.00, 'Wyciek oleju ze skrzyni biegów- do sprawdzenia'],

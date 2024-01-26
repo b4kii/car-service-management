@@ -4,32 +4,35 @@
     Home
 {% endblock title %}
 
-{% block sidebar %}
-{% endblock sidebar %}
-
 {% block main %}
-    <div class="container-fluid d-flex justify-content-center align-items-center">
+    {% set errors =  get("errors") %}
+    <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="height: calc(100vh - 56px);">
+        <h1 class="text-center mt-3">Car Service Management</h1>
         <form
-            hx-get="/service-details"
-            hx-swap="outerHTML"
-            hx-target="#main-container"
-            hx-indicator="#loader-backdrop"
-            hx-push-url="true"
+            action="/service-details"
+            method="GET"
+            style="height: max-content"
         >
-            <div class="input-group shadow-sm rounded-3">
-                <input
-                    type="text"
-                    name="clientCode"
-                    class="form-control form-control-lg"
-                    placeholder="Wprowadź kod"
-                    aria-label="customer-code"
-                >
-                <button class="input-group-text">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
+            <div
+                class="container d-flex flex-column align-items-center"
+                style="height: calc(100vh - 56px); margin-top: 20%"
+            >
+                <div class="input-group rounded-3 w-50">
+                    <input
+                        type="text"
+                        name="clientCode"
+                        class="form-control form-control-lg {{ errors.clientCode ? 'is-invalid' : '' }}"
+                        placeholder="Wprowadź kod"
+                        aria-label="customer-code"
+                        value="{{ get("old").clientCode }}"
+                    >
+                    <button class="btn btn-secondary rounded-end">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <span class="invalid-feedback">{{ errors.clientCode | first }}</span>
+                </div>
             </div>
         </form>
-
     </div>
 {% endblock main %}
 

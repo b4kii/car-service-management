@@ -6,14 +6,10 @@ class AuthMiddleware
 {
     public function handle(array $options = []): void
     {
-        //TODO: Add either redirection to unauthorized or flash message
-        
-        if (!isset($_SESSION["user"])) {
-            header("location: /");
-            exit();
-        }
-        
-        if (!in_array($_SESSION["user"]["role"], $options)) {
+        if (
+            !isset($_SESSION["user"]) ||
+            (!in_array($_SESSION["user"]["role"], $options) && !in_array("All", $options))
+        ) {
             header("location: /");
             exit();
         }

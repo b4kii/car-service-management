@@ -1,19 +1,22 @@
 <nav
-{#    class="navbar navbar-expand-lg px-lg-5 bg-dark-subtle text-white"#}
     class="navbar navbar-expand-lg px-lg-5 border-1 border-bottom border-dark-subtle"
 >
     <div class="container-fluid">
-        {#        TODO: Hide this button when user is not logged in #}
-
         <button
-                class="navbar-toggler d-lg-none"
-                id="sidebarBtn"
+                class="navbar-toggler px-3 text-white d-md-none"
                 type="button"
-                aria-controls="offcanvasExample"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#sidebarMenu"
+                aria-controls="sidebarMenu"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
         >
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="/">Logo</a>
+        <a class="navbar-brand" href="/">
+            <i class="fa-solid fa-screwdriver-wrench fs-2"></i>
+            <i class="fa-solid fa-car fs-2"></i>
+        </a>
         <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             </ul>
@@ -23,23 +26,26 @@
                 {% if user %}
                 <ul class="navbar-nav dropdown">
                     <li class="nav-item">
-                        {#                        TODO: Fix user auth with method or leave this as is #}
                         <a class="nav-link active dropdown-toggle"
                            href="#"
                            role="button"
                            data-bs-toggle="dropdown"
                            aria-expanded="false"
                         >
-                            {{ user.name }}
+                            {{ user.username }}
                         </a>
 
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="/profile">Profil</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li>
+                                <form action="/logout" method="POST">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button class="dropdown-item">Wyloguj</button>
+                                </form>
+                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -48,11 +54,6 @@
                        href="/login"
                     >
                         Zaloguj się
-                    </a>
-                    <a class="btn text-body"
-                       href="/register"
-                    >
-                        Rejestruj
                     </a>
                 {% endif %}
             </div>

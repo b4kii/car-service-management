@@ -1,0 +1,44 @@
+{% extends "/base.html.twig" %}
+
+{% block title %}
+    Klienci
+{% endblock title %}
+
+{% block main %}
+    <div
+        class="col-md-9 ms-sm-auto col-lg-10 px-md-4 d-flex flex-column gap-2 my-5"
+        style="min-height: calc(100vh - 56px);">
+        <h1 class="text-center">Lista klientów</h1>
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Lp</th>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>Rodzaj klienta</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set i = 1 %}
+            {% for client in clients %}
+                <tr onclick="window.location='/update-client?id={{ client.Id }}'" style="cursor: pointer;">
+                    <td>
+                        {{ i }}
+                    </td>
+                    <td>
+                        {{ client.Firstname }}
+                    </td>
+                    <td>
+                        {{ client.Lastname }}
+                    </td>
+                    <td>
+                        {{ client.Type }}
+                    </td>
+                </tr>
+                {% set i = i +1 %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock main %}

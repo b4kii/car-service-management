@@ -4,11 +4,35 @@
     Register
 {% endblock title %}
 
-{#{% block sidebar %}#}
-{#{% endblock sidebar %}#}
-
 {% block main %}
-    <div id="main" class="col col-lg-9 col-xl-10 main-content">
-        <h1>Register</h1>
+    <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div
+            class="container d-flex flex-column justify-content-center align-items-center gap-3 w-25"
+            style="height: calc(100vh - 56px);"
+        >
+            <h1>Register</h1>
+            <div class="form-floating">
+                <input id="username"
+                       type="text"
+                       name="username"
+                       placeholder=" "
+                       value="{{ get("old").username }}"
+                       class="form-control form-control-lg {{ errors.username ? 'is-invalid' : '' }}"
+                >
+                <label for="username">Nazwa użytkownika</label>
+                <span class="invalid-feedback">{{ errors.username | first }}</span>
+            </div>
+            <div class="form-floating">
+                <input id="password"
+                       type="password"
+                       name="password"
+                       placeholder=" "
+                       class="form-control form-control-lg {{ errors.password ? 'is-invalid' : '' }}"
+                >
+                <label for="password">Hasło</label>
+                <span class="invalid-feedback">{{ errors.password | first }}</span>
+            </div>
+            <button class="btn btn-primary w-100">Dodaj</button>
+        </div>
     </div>
 {% endblock main %}

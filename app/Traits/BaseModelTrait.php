@@ -18,11 +18,18 @@ trait BaseModelTrait
 
         return $this->database->query($query, $params)->find();
     }
+    
+    public function getOneByCondition($table, $condition)
+    {
+        $query = "SELECT * FROM {$table} WHERE {$condition}";
+        
+        return $this->database->query($query)->find();
+    }
 
     public function getByCondition($table, $condition)
     {
         $query = "SELECT * FROM {$table} WHERE {$condition}";
-
+        
         return $this->database->query($query)->findAll();
     }
 
@@ -46,9 +53,9 @@ trait BaseModelTrait
         return $this->database->updateRecords($table, $data, $condition);
     }
 
-    public function deleteRecord(string $table, string $condition, array $values): int
+    public function deleteRecord(string $table, string $condition): int
     {
-        return $this->database->deleteRecord($table, $condition, $values);
+        return $this->database->deleteRecord($table, $condition);
     }
 
     public function deleteAllRecords(string $table): int

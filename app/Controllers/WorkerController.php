@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Core\Commons\Formatter;
 use App\Core\Commons\Session;
 use App\Core\Twig\Twig;
 use App\Enums\CarStatus;
@@ -9,6 +10,7 @@ use App\Models\WorkerModel;
 use DateTime;
 use Ramsey\Uuid\Uuid;
 use Valitron\Validator;
+use Vtiful\Kernel\Format;
 
 class WorkerController
 {
@@ -28,6 +30,108 @@ class WorkerController
         return $this->twig->render('worker/create/add-car.html.twig', [
             "clients" => $clients
         ]);
+    }
+    
+    public function carListIndex()
+    {
+        $workerId = Session::get("user")["id"];
+        $role = Session::get("user")["role"];
+        
+        $carList = [];
+        if ($role === "Admin") {
+            $carList = $this->model->carListDetails($workerId, true);
+        } else {
+            $carList = $this->model->carListDetails($workerId);
+        }
+        
+        return $this->twig->render('worker/car-list.html.twig', [
+            "carList" => $carList
+        ]);
+    }
+    
+    public function profileIndex()
+    {
+        $workerId = Session::get("user")["id"];
+        
+        $workerDetails = $this->model->getWorkerDetails($workerId);
+        
+        return $this->twig->render('worker/profile/index.html.twig', [
+            "worker" => $workerDetails
+        ]);
+    }
+    
+    public function editProfileIndex()
+    {
+        $workerId = (int)$_GET["id"];
+        $userSessionId = Session::get("user")["id"];
+        
+        if ($workerId !== $userSessionId) {
+            return $this->twig->render('errors/401.html.twig');
+        }
+        
+        $workerDetails = $this->model->getWorkerDetails($workerId);
+        
+        return $this->twig->render('worker/profile/edit.html.twig', [
+            "worker" => $workerDetails
+        ]);
+    }
+    
+    public function editProfile()
+    {
+        $userSessionId = Session::get("user")["id"];
+        $workerId = (int)$_POST["workerId"];
+        
+        if ($workerId !== $userSessionId) {
+            return $this->twig->render('errors/401.html.twig');
+        }
+        
+        $validator = new Validator($_POST);
+        $validator->rules([
+            "lengthBetween" => [
+                ["firstname", 1, 50],
+                ["lastname", 1, 50],
+                ["phone", 1, 15],
+            ],
+            "email" => [
+                ["email"]
+            ]
+        ]);
+        
+        $firstname = $_POST["firstname"];
+        $lastname = $_POST["lastname"];
+        $phone = $_POST["phone"];
+        $email = $_POST["email"];
+        
+        if (!$validator->validate())
+        {
+            Session::flash("errors", [
+                "firstname" => $validator->errors("firstname"),
+                "lastname" => $validator->errors("lastname"),
+                "phone" => $validator->errors("phone"),
+                "email" => $validator->errors("email"),
+            ]);
+            
+            Session::flash("old", [
+                "firstname" => $firstname,
+                "lastname" => $lastname,
+                "phone" => $phone,
+                "email" => $email
+            ]);
+            
+            redirect("/profile-edit?id={$workerId}");
+        }
+        
+        $updatedData = [
+            "Firstname" => $firstname,
+            "Lastname" => $lastname,
+            "Phone" => $phone,
+            "Email" => $email
+        ];
+        
+        $result = $this->model->updateWorker($updatedData, $workerId);
+        if ($result) {
+            redirect("/update-worker?id={$workerId}");
+        }
     }
 
     public function updateClientIndex()
@@ -136,12 +240,20 @@ class WorkerController
             'Code' => $code,
             'Type' => $type
         ];
-        $this->model->addClient($clientData);
+        
+        $result = $this->model->addClient($clientData);
+        
+        
+//        TODO: Dodac odpowiednie redirecty
+        if ($result) {
+            redirect("/worker-cars");
+        }
     }
 
     public function addCar()
     {
-        // dodać workerId z sesji
+        $workerId = Session::get("user")["id"];
+        
         $validator = new Validator($_POST);
         $validator->rules([
             "required" => [
@@ -190,7 +302,7 @@ class WorkerController
 
         $carData = [
             'clientId' => $clientId,
-            'workerId' => 1,
+            'workerId' => $workerId,
             'brand' => $brand,
             'model' => $model,
             'identificationNumber' => $identificationNumber,
@@ -203,7 +315,10 @@ class WorkerController
             'submissionDate' => $submissionDate
         ];
 
-        $this->model->addCar($carData);
+        $result = $this->model->addCar($carData);
+        if ($result) {
+            redirect("/worker-cars");
+        }
     }
 
     public function updateClient()

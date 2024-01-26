@@ -40,7 +40,6 @@ class Session
     
     public static function destroy($key)
     {
-        
         static::flush();
         session_destroy();
         

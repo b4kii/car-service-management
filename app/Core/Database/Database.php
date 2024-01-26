@@ -116,12 +116,12 @@ class Database implements DatabaseInterface
         }
     }
     
-    public function deleteRecord(string $table, string $condition, array $values): int
+    public function deleteRecord(string $table, string $condition): int
     {
         $query = "DELETE FROM {$table} WHERE {$condition}";
 
         try {
-            $this->query($query, $values);
+            $this->query($query);
             return $this->statement->rowCount();
         } catch (\PDOException $e) {
             echo "Error while deleting record - {$query}\n{$e->getMessage()} ";
@@ -141,16 +141,16 @@ class Database implements DatabaseInterface
             exit();
         }
     }
-
+    
     public function isEmpty(string $table): bool
     {
-        $query = "SELECT COUNT(*) AS c FROM $table";
-
+        $query = "SELECT COUNT(*) AS c FROM {$table}";
+        
         try {
             $x = $this->query($query)->find();
             return $x["c"] == 0;
         } catch (\PDOException $e) {
-            echo "Error while checking empty table- {$query}\n{$e->getMessage()} ";
+            echo "Error while checking empty table - {$query}\n{$e->getMessage()}";
             exit();
         }
     }
