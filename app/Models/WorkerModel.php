@@ -21,9 +21,15 @@ class WorkerModel extends BaseModel
         return $this->addRecord("Address", $data);
     }
     
-    public function carListDetails($workerId)
+    public function carListDetails($workerId, $isAdmin = false)
     {
-        $workerCars = $this->getByCondition("Car", "WorkerId = {$workerId}");
+        $workerCars = [];
+        
+        if ($isAdmin) {
+            $workerCars = $this->getAll("Car");
+        } else {
+            $workerCars = $this->getByCondition("Car", "WorkerId = {$workerId}");
+        }
         
         foreach ($workerCars as &$car) {
             $car["services"] = $this->getCarServiceDetails($car["Id"]);

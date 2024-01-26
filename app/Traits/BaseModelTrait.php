@@ -53,9 +53,9 @@ trait BaseModelTrait
         return $this->database->updateRecords($table, $data, $condition);
     }
 
-    public function deleteRecord(string $table, string $condition, array $values): int
+    public function deleteRecord(string $table, string $condition): int
     {
-        return $this->database->deleteRecord($table, $condition, $values);
+        return $this->database->deleteRecord($table, $condition);
     }
 
     public function deleteAllRecords(string $table): int

@@ -116,12 +116,12 @@ class Database implements DatabaseInterface
         }
     }
     
-    public function deleteRecord(string $table, string $condition, array $values): int
+    public function deleteRecord(string $table, string $condition): int
     {
         $query = "DELETE FROM {$table} WHERE {$condition}";
 
         try {
-            $this->query($query, $values);
+            $this->query($query);
             return $this->statement->rowCount();
         } catch (\PDOException $e) {
             echo "Error while deleting record - {$query}\n{$e->getMessage()} ";

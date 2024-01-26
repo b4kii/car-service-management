@@ -56,9 +56,9 @@ class DatabaseSeed {
     {
         $columns = ['Firstname', 'Lastname', 'Login', 'Password', 'Email', 'Phone', 'Role'];
         $data = [
-            ['admin', '$2y$10$ck3UCmkxN26r4XxVRwmZT.aR/8u6aTLwBq6soBnZYaUkPRwjCbuyC', 'admin@mail.com', '993-213-421', 'Admin'],
-            ['manager', '$2y$10$jRxoGp2eT.pf08m7aNRl/OE2b581Cb5jc/l1Shnwx8WVjJkPDqQxq', 'manager@mail.com', '993-213-114', 'Manager'],
-            ['worker', '$2y$10$2Rakb6E6Blp/.Jer52r5e.N5b7xbbtYzeKcfnHNup39LcchpnCNN.', 'worker@mail.com', '778-220-410', 'Worker']
+            ['Karol', 'Kowalski', 'admin', '$2y$10$ck3UCmkxN26r4XxVRwmZT.aR/8u6aTLwBq6soBnZYaUkPRwjCbuyC', 'admin@mail.com', '993-213-421', 'Admin'],
+            ['Damian', 'Szybki', 'manager', '$2y$10$jRxoGp2eT.pf08m7aNRl/OE2b581Cb5jc/l1Shnwx8WVjJkPDqQxq', 'manager@mail.com', '993-213-114', 'Manager'],
+            ['Zenon', 'Mily', 'worker', '$2y$10$2Rakb6E6Blp/.Jer52r5e.N5b7xbbtYzeKcfnHNup39LcchpnCNN.', 'worker@mail.com', '778-220-410', 'Worker']
         ];
         
         $this->database->insertRecords('User', $columns, $data);

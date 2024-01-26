@@ -4,98 +4,108 @@
     Edytuj pracownika
 {% endblock title %}
 
-{% block sidebar %}
-{% endblock sidebar %}
-
 {% block main %}
-    {% set errors =  get("errors") %}
-    <h1 class="text-center">Edytuj pracownika</h1>
-    <form class="row" action="/update-worker?id={{ workerModel.Id }}" method="POST">
-        <div class="col">
-            <div class="container d-flex flex-column justify-content-center align-items-center gap-3 w-50">
-                <div class="form-floating w-100">
-                    <input
+    <div
+        class="col-md-9 ms-sm-auto col-lg-10 px-md-4 d-flex flex-column gap-2 my-5"
+        style="min-height: calc(100vh - 56px);">
+        {% set errors =  get("errors") %}
+        <h1 class="text-center">Edytuj pracownika</h1>
+        <form class="row" action="/update-worker?id={{ workerModel.Id }}" method="POST">
+            <div class="col">
+                <div class="container d-flex flex-column justify-content-center align-items-center gap-3 w-50">
+                    <div class="form-floating w-100">
+                        <input
                             id="workerId"
                             type="text"
                             name="workerId"
                             readonly
                             value="{{ workerModel.Id }}"
                             class="form-control form-control-lg">
-                    <label for="workerId">ID</label>
-                </div>
-                <div class="form-floating w-100">
-                    <input
+                        <label for="workerId">ID</label>
+                    </div>
+                    <div class="form-floating w-100">
+                        <input
                             id="firstname"
                             type="text"
                             name="firstname"
                             value="{{ workerModel.Firstname }}"
                             class="form-control form-control-lg {{ errors.firstname ? 'is-invalid' : '' }}">
-                    <label for="firstname">Imie</label>
-                    <span class="invalid-feedback">{{ errors.firstname | first }}</span>
-                </div>
-                <div class="form-floating w-100">
-                    <input
+                        <label for="firstname">Imie</label>
+                        <span class="invalid-feedback">{{ errors.firstname | first }}</span>
+                    </div>
+                    <div class="form-floating w-100">
+                        <input
                             id="lastname"
                             type="text"
                             name="lastname"
                             value="{{ workerModel.Lastname }}"
                             class="form-control form-control-lg {{ errors.lastname ? 'is-invalid' : '' }}">
-                    <label for="lastname">Nazwisko</label>
-                    <span class="invalid-feedback">{{ errors.lastname | first }}</span>
-                </div>
-                <div class="form-floating w-100">
-                    <input
+                        <label for="lastname">Nazwisko</label>
+                        <span class="invalid-feedback">{{ errors.lastname | first }}</span>
+                    </div>
+                    <div class="form-floating w-100">
+                        <input
                             id="email"
                             type="text"
                             name="email"
                             value="{{ workerModel.Email }}"
                             class="form-control form-control-lg {{ errors.email ? 'is-invalid' : '' }}">
-                    <label for="lastnemailame">Email</label>
-                    <span class="invalid-feedback">{{ errors.email | first }}</span>
-                </div>
-                <div class="form-floating w-100">
-                    <input
+                        <label for="lastnemailame">Email</label>
+                        <span class="invalid-feedback">{{ errors.email | first }}</span>
+                    </div>
+                    <div class="form-floating w-100">
+                        <input
                             id="phone"
                             type="text"
                             name="phone"
                             value="{{ workerModel.Phone }}"
                             class="form-control form-control-lg {{ errors.phone ? 'is-invalid' : '' }}">
-                    <label for="phone">Numer telefonu</label>
-                    <span class="invalid-feedback">{{ errors.phone | first }}</span>
+                        <label for="phone">Numer telefonu</label>
+                        <span class="invalid-feedback">{{ errors.phone | first }}</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col">
-            <div class="container d-flex flex-column justify-content-center align-items-center gap-3 w-50">
-                <div class="form-floating w-100">
-                    <select id="role" type="text" name="role" class="form-select form-control-lg">
-                        <option value="Worker" {{ workerModel.Role == 'Worker' ? 'selected' : '' }}>Pracownik</option>
-                        <option value="Manager" {{ workerModel.Role == 'Manager' ? 'selected' : '' }}>Menadżer</option>
-                    </select>
-                    <label for="role">Rola</label>
-                </div>
-                <div class="form-floating w-100">
-                    <input
+            <div class="col">
+                <div class="container d-flex flex-column justify-content-center align-items-center gap-3 w-50">
+                    <div class="form-floating w-100">
+                        <select id="role" type="text" name="role" class="form-select form-control-lg">
+                            <option value="Worker" {{ workerModel.Role == 'Worker' ? 'selected' : '' }}>Pracownik
+                            </option>
+                            <option value="Manager" {{ workerModel.Role == 'Manager' ? 'selected' : '' }}>Menadżer
+                            </option>
+                        </select>
+                        <label for="role">Rola</label>
+                    </div>
+                    <div class="form-floating w-100">
+                        <input
                             id="login"
                             type="text"
                             name="login"
                             value="{{ workerModel.Login }}"
                             class="form-control form-control-lg {{ errors.login ? 'is-invalid' : '' }}">
-                    <label for="login">Login</label>
-                    <span class="invalid-feedback">{{ errors.login | first }}</span>
-                </div>
-                <div class="form-floating w-100">
-                    <input
+                        <label for="login">Login</label>
+                        <span class="invalid-feedback">{{ errors.login | first }}</span>
+                    </div>
+                    <div class="form-floating w-100">
+                        <input
                             id="password"
                             type="password"
                             name="password"
-                            value="{{ workerModel.Password }}"
+{#                            value="{{ workerModel.Password }}"#}
                             class="form-control form-control-lg {{ errors.password ? 'is-invalid' : '' }}">
-                    <label for="password">Hasło</label>
-                    <span class="invalid-feedback">{{ errors.password | first }}</span>
+                        <label for="password">Hasło</label>
+                        <span class="invalid-feedback">{{ errors.password | first }}</span>
+                    </div>
+                    <button class="btn btn-success w-100">Edytuj pracownika</button>
+                    <a href="#" onclick="goBack(); return false;" class="btn btn-danger w-100">Anuluj</a>
                 </div>
-                <button class="btn btn-outline-success w-100">Edytuj pracownika</button>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
 {% endblock main %}

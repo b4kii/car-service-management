@@ -5,12 +5,13 @@
             <button type="button" class="btn-close d-md-none ml-auto" data-bs-dismiss="offcanvas"
                     data-bs-target="#sidebarMenu" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body d-flex flex-column justify-content-between" style="height: 80vh;">
+        <div class="position-relative offcanvas-body d-flex flex-column justify-content-between" style="height: 80vh;">
             <ul class="nav flex-column mt-2">
                 {% set user = session.user %}
                 {% if session.user %}
                     <li class="nav-item">
-                        <a href="/add-client" class="nav-link text-body {{ url starts with '/add-client' ? 'fw-bold' : '' }}">
+                        <a href="/add-client"
+                           class="nav-link text-body {{ url starts with '/add-client' ? 'fw-bold' : '' }}">
                             Dodaj klienta
                         </a>
                     </li>
@@ -19,25 +20,48 @@
                             Dodaj pojazd
                         </a>
                     </li>
+                    {% if user.role == "Admin" %}
+                        <li class="nav-item">
+                            <a href="/add-worker"
+                               class="nav-link text-body {{ url starts with '/add-worker' ? 'fw-bold' : '' }}">
+                                Dodaj pracownika
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/workers"
+                               class="nav-link text-body {{ url starts with '/workers' ? 'fw-bold' : '' }}">
+                                Wyświetl pracowników
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/clients"
+                               class="nav-link text-body {{ url starts with '/clients' ? 'fw-bold' : '' }}">
+                                Wyświetl klientów
+                            </a>
+                        </li>
+                    {% endif %}
                     <li class="nav-item">
-                        <a href="#" class="nav-link text-body {{ url starts with '/add-worker' ? 'fw-bold' : '' }}">
-                            Dodaj pracownika
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/worker-cars" class="nav-link text-body {{ url starts with '/worker-cars' ? 'fw-bold' : '' }}">
+                        <a href="/worker-cars"
+                           class="nav-link text-body {{ url starts with '/worker-cars' ? 'fw-bold' : '' }}">
                             Wyświetl serwisowane pojazdy
                         </a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            Something
+                        <a href="/available-services" class="nav-link text-body {{ url starts with '/available-services' ? 'fw-bold' : '' }}">
+                            Oferowane usługi
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/regulations" class="nav-link text-body {{ url starts with '/regulations' ? 'fw-bold' : '' }}">
+                            Regulamin serwisu
                         </a>
                     </li>
                 {% endif %}
             </ul>
-            <div class="d-flex justify-content-center align-items-center gap-3 border-top pt-2">
+            <div class="position-fixed d-flex justify-content-center align-items-center gap-3 border-top pt-2"
+                 style="bottom: 1rem; left: 5%; z-index: 9999;"
+            >
                 <i class="fa-solid fa-sun fs-5"></i>
                 <div class="form-check form-switch">
                     <input

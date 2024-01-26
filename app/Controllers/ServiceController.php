@@ -121,4 +121,14 @@ class ServiceController
 
         $this->model->updateService($serviceData, $id);
     }
+    
+    public function deleteService()
+    {
+        $serviceId = $_GET["id"];
+        
+        $result = $this->model->deleteRecord("Service", "Id = {$serviceId}");
+        if ($result) {
+            redirect("/worker-cars");
+        }
+    }
 }

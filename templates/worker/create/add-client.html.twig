@@ -107,9 +107,16 @@
                         <label for="email">Email</label>
                         <span class="invalid-feedback">{{ errors.email | first }}</span>
                     </div>
-                    <button class="btn btn-outline-success w-100">Dodaj klienta</button>
+                    <button class="btn btn-success w-100">Dodaj klienta</button>
+                    <a href="#" onclick="goBack(); return false;" class="btn btn-danger w-100">Anuluj</a>
                 </div>
             </div>
         </form>
     </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 {% endblock main %}
