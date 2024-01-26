@@ -27,9 +27,9 @@ function abort($code = 404): never
     exit();
 }
 
-function redirect($path): never
+function redirect($path, $param = ""): never
 {
-    header("location: {$path}");
+    header("location: {$path}{$param}");
     exit();
 }
 

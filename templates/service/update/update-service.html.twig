@@ -1,0 +1,65 @@
+{% extends "/base.html.twig" %}
+
+{% block title %}
+    Edytuj usługę
+{% endblock title %}
+
+{% block sidebar %}
+{% endblock sidebar %}
+
+{% block main %}
+    {% set errors =  get("errors") %}
+    <h1 class="text-center">Edytuj usługę</h1>
+    <form class="row" action="/update-service?id={{ serviceModel.Id }}" method="POST">
+        <div class="col">
+            <div class="container d-flex flex-column justify-content-center align-items-center gap-3 w-50">
+                <div class="form-floating w-100">
+                    <input
+                            id="serviceId"
+                            type="text"
+                            name="serviceId"
+                            readonly
+                            value="{{ serviceModel.Id }}"
+                            class="form-control form-control-lg">
+                    <label for="serviceId">ID</label>
+                </div>
+                <div class="form-floating w-100">
+                    <input
+                            id="name"
+                            type="text"
+                            name="name"
+                            value="{{ serviceModel.Name }}"
+                            class="form-control form-control-lg {{ errors.name ? 'is-invalid' : '' }}">
+                    <label for="name">Nazwa</label>
+                    <span class="invalid-feedback">{{ errors.name | first }}</span>
+                </div>
+                <div class="form-floating w-100">
+                    <input
+                            id="cost"
+                            type="number"
+                            step="0.1"
+                            name="cost"
+                            value="{{ serviceModel.Cost }}"
+                            class="form-control form-control-lg {{ errors.cost ? 'is-invalid' : '' }}">
+                    <label for="cost">Koszt</label>
+                    <span class="invalid-feedback">{{ errors.cost | first }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="container d-flex flex-column justify-content-center align-items-center gap-3 w-50">
+                <div class="form-floating w-100">
+                    <textarea
+                            id="comment"
+                            type="text"
+                            rows="20"
+                            name="comment"
+                            class="form-control form-control-lg {{ errors.comment ? 'is-invalid' : '' }}">{{ serviceModel.Comment }}</textarea>
+                    <label for="comment">Komentarz</label>
+                    <span class="invalid-feedback">{{ errors.comment | first }}</span>
+                </div>
+                <button class="btn btn-outline-success w-100">Edytuj usługę</button>
+            </div>
+        </div>
+    </form>
+{% endblock main %}

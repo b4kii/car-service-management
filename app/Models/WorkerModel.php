@@ -82,4 +82,19 @@ class WorkerModel extends BaseModel
     {
         return $this->updateRecords("User", $data, "Id={$workerId}");
     }
+
+    public function updateClient($data, $id)
+    {
+        return $this->updateRecords("Client", $data, "Id = {$id}");
+    }
+
+    public function updateAddress($data, $id)
+    {
+        return $this->updateRecords("Address", $data, "Id = {$id}");
+    }
+
+    public function updateCar($data, $id)
+    {
+        return $this->updateRecords("Car", $data, "Id = {$id}");
+    }
 }

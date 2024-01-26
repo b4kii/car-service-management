@@ -19,6 +19,8 @@ CREATE TABLE `Address`(
 -- TODO: add first name, last name
 CREATE TABLE `User`(
     `Id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `Firstname` VARCHAR(50) NOT NULL,
+    `Lastname` VARCHAR(50) NOT NULL,
     `Login` VARCHAR(50) NOT NULL,
     `Password` VARCHAR(100) NOT NULL,
     `Email` VARCHAR(50) NOT NULL,
